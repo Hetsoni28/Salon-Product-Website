@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { motion } from "framer-motion";
@@ -39,7 +39,7 @@ export function DealerCTASection() {
                 Become a <br /> Certified Dealer.
               </h2>
               <p className="text-gray-400 text-lg font-light leading-relaxed mb-10 max-w-md">
-                Partner with Lumière Professional and offer your clients the
+                Partner with LumiÃ¨re Professional and offer your clients the
                 pinnacle of waxing luxury. Gain access to exclusive wholesale
                 pricing, dedicated hands-on training, and premium salon support.
               </p>
@@ -56,7 +56,7 @@ export function DealerCTASection() {
 
             <div className="relative h-64 lg:h-auto hidden md:block">
               <Image
-                src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=1200&auto=format&fit=crop"
+                src="/images/dealer-cta.jpg"
                 alt="Spa Treatment Room"
                 fill
                 className="object-cover opacity-80"
@@ -73,3 +73,4 @@ export function DealerCTASection() {
 }
 
 export default DealerCTASection;
+

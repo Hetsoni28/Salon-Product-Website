@@ -19,7 +19,7 @@ const featuredProducts = [
     price: 2400,
     badge: "Bestseller",
     image:
-      "https://images.unsplash.com/photo-1629198728070-7a5482348ebf?q=80&w=600&auto=format&fit=crop",
+      "/images/product-1.jpg",
     rating: 4.8,
     reviewCount: 124,
   },
@@ -30,7 +30,7 @@ const featuredProducts = [
     price: 1800,
     badge: "New",
     image:
-      "https://images.unsplash.com/photo-1611078489935-0cb964de46d6?q=80&w=600&auto=format&fit=crop",
+      "/images/product-2.jpg",
     rating: 4.9,
     reviewCount: 84,
   },
@@ -40,7 +40,7 @@ const featuredProducts = [
     slug: "post-wax-calming-oil",
     price: 1200,
     image:
-      "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=600&auto=format&fit=crop",
+      "/images/product-3.jpg",
     rating: 4.9,
     reviewCount: 210,
   },
@@ -51,7 +51,7 @@ const featuredProducts = [
     price: 4500,
     badge: "Sale",
     image:
-      "https://images.unsplash.com/photo-1580870058826-6242139611db?q=80&w=600&auto=format&fit=crop",
+      "/images/product-4.jpg",
     rating: 5.0,
     reviewCount: 45,
   },
@@ -59,7 +59,7 @@ const featuredProducts = [
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="flex flex-col min-h-screen bg-background text-foreground">
       {/* 1. Hero */}
       <HeroSection
         title="Professional Salon Essentials"
@@ -98,7 +98,6 @@ export default function Home() {
     </div>
   );
 }
-
 
 // Trigger Turbopack rebuild
 

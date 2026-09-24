@@ -1,9 +1,9 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Inter, Cormorant_Garamond, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import { env } from "@/lib/env";
-import { Navbar, Footer } from "@/components/organisms";
+import { SiteLayoutWrapper } from "@/components/organisms/SiteLayoutWrapper";
 import { AppProviders } from "@/lib/providers/AppProviders";
 
 const inter = Inter({
@@ -34,7 +34,9 @@ export const metadata: Metadata = {
   description:
     "Discover LUMIÈRE's curated collection of premium, natural skincare products. Dermatologist-tested, cruelty-free formulas crafted for radiant skin.",
   keywords: [
-    "salon supplies", "waxing", "professional wax",
+    "salon supplies",
+    "waxing",
+    "professional wax",
     "natural skincare",
     "premium beauty",
     "cruelty free",
@@ -55,7 +57,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="en"
@@ -63,9 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body className="bg-brand-cream text-brand-charcoal antialiased selection:bg-brand-gold selection:text-white">
         <AppProviders>
-          <Navbar />
-          <main className="pt-16">{children}</main>
-          <Footer />
+          <SiteLayoutWrapper>{children}</SiteLayoutWrapper>
         </AppProviders>
       </body>
     </html>

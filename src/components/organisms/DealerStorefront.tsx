@@ -28,7 +28,7 @@ interface ProductItem {
   slug: string;
   price: number;
   originalPrice?: number;
-  image?: SanityImageSource | string;
+  image: Record<string, unknown> | string;
   rating?: number;
   reviewCount?: number;
   badge?: string;
@@ -147,7 +147,7 @@ export const DealerStorefront: React.FC<DealerStorefrontProps> = ({
               {/* Verified Badge */}
               <div className="absolute -bottom-2 -right-2 bg-brand-gold rounded-full px-3 py-1 flex items-center gap-1 shadow-lg">
                 <Award size={12} className="text-white" />
-                <span className="text-white text-[10px] font-bold uppercase tracking-wider">
+                <span className="text-white text-2xs font-bold uppercase tracking-wider">
                   Verified
                 </span>
               </div>
@@ -286,7 +286,7 @@ export const DealerStorefront: React.FC<DealerStorefrontProps> = ({
 
           {products.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {products.map((product: any) => (
+              {products.map((product: ProductItem) => (
                 <ProductCard key={product.id} {...product} />
               ))}
             </div>

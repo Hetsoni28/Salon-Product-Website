@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -17,7 +17,7 @@ export function ProUseSection() {
         className="absolute inset-0 w-full h-[140%] -top-[20%]"
       >
         <Image
-          src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=2000&auto=format&fit=crop"
+          src="/images/pro-use.jpg"
           alt="Professional Salon"
           fill
           className="object-cover opacity-40 mix-blend-overlay"
@@ -67,3 +67,4 @@ export function ProUseSection() {
 }
 
 export default ProUseSection;
+

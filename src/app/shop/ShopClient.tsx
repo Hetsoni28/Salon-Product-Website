@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import { ProductGrid } from '@/components/organisms/ProductGrid';
@@ -14,7 +14,7 @@ const MOCK_PRODUCT = {
   reviewCount: 128,
   badge: 'Bestseller',
   category: 'Hard Wax',
-  image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=600&auto=format&fit=crop',
+  image: '/images/product-1.jpg',
 };
 
 interface ShopClientProps {
@@ -27,9 +27,9 @@ export default function ShopClient({ initialProducts, initialCategory = 'All' }:
   // If Sanity is empty, fallback to mock products for client presentation
   const products = initialProducts.length > 0 ? initialProducts : [
     MOCK_PRODUCT, 
-    { ...MOCK_PRODUCT, id: 'mock-2', title: 'Pre-Wax Cleansing Gel', price: 1800, badge: 'New', category: 'Pre & Post Care', image: 'https://images.unsplash.com/photo-1611078489935-0cb964de46d6?q=80&w=600&auto=format&fit=crop' }, 
-    { ...MOCK_PRODUCT, id: 'mock-3', title: 'Post-Wax Calming Oil', price: 1200, badge: '', category: 'Pre & Post Care', image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=600&auto=format&fit=crop' },
-    { ...MOCK_PRODUCT, id: 'mock-4', title: 'Professional Wax Heater', price: 4500, badge: 'Sale', category: 'Accessories', image: 'https://images.unsplash.com/photo-1629198728070-7a5482348ebf?q=80&w=600&auto=format&fit=crop' }
+    { ...MOCK_PRODUCT, id: 'mock-2', title: 'Pre-Wax Cleansing Gel', price: 1800, badge: 'New', category: 'Pre & Post Care', image: '/images/product-2.jpg' }, 
+    { ...MOCK_PRODUCT, id: 'mock-3', title: 'Post-Wax Calming Oil', price: 1200, badge: '', category: 'Pre & Post Care', image: '/images/product-3.jpg' },
+    { ...MOCK_PRODUCT, id: 'mock-4', title: 'Professional Wax Heater', price: 4500, badge: 'Sale', category: 'Accessories', image: '/images/product-4.jpg' }
   ];
 
   const displayProducts = initialCategory === 'All' 
@@ -60,4 +60,5 @@ export default function ShopClient({ initialProducts, initialCategory = 'All' }:
     </div>
   );
 }
+
 

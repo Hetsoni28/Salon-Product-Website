@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { motion } from "framer-motion";
@@ -43,7 +43,7 @@ export function ProductBenefitsSection() {
           >
             <div className="relative aspect-3/4 w-full max-w-md mx-auto overflow-hidden rounded-t-[10rem] rounded-b-3xl shadow-2xl border-8 border-white">
               <Image
-                src="https://images.unsplash.com/photo-1629198728070-7a5482348ebf?q=80&w=1200&auto=format&fit=crop"
+                src="/images/product-benefits.jpg"
                 alt="Premium Waxing"
                 fill
                 className="object-cover"
@@ -136,3 +136,4 @@ export function ProductBenefitsSection() {
 }
 
 export default ProductBenefitsSection;
+

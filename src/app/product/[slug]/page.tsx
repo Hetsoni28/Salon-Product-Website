@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+﻿import { notFound } from 'next/navigation';
 import { ProductDetailPanel } from '@/components/organisms/ProductDetailPanel';
 import { client } from '@/sanity/client';
 import { groq } from 'next-sanity';
@@ -8,27 +8,27 @@ const MOCK_PRODUCTS = [
     id: '1',
     slug: 'premium-hard-wax',
     title: 'Premium Hard Wax Beans - Pearl',
-    brand: 'Lumière Professional',
+    brand: 'LumiÃ¨re Professional',
     price: 2400,
     originalPrice: 3000,
     rating: 4.9,
     reviewCount: 128,
     shortDescription: 'Our signature professional-grade hard wax beans formulated for sensitive skin.',
     fullDescription: 'Experience the ultimate in hair removal with our Pearl Hard Wax. Designed to melt evenly at low temperatures, it ensures maximum client comfort while grasping even the finest hairs for a flawless finish. Ideal for face, underarms, and bikini areas.',
-    howToUse: 'Heat wax to 130�F. Cleanse skin with Pre-Wax Cleansing Gel. Apply wax in the direction of hair growth. Allow to cool for 10-15 seconds. Pull firmly in the opposite direction of hair growth.',
+    howToUse: 'Heat wax to 130ï¿½F. Cleanse skin with Pre-Wax Cleansing Gel. Apply wax in the direction of hair growth. Allow to cool for 10-15 seconds. Pull firmly in the opposite direction of hair growth.',
     benefits: ['Low temperature melting point', 'Removes hair as short as 1mm', 'Leaves no sticky residue', 'Dermatologist tested'],
     sizeQuantity: '1 kg / 2.2 lbs',
     availability: 'In Stock',
-    mainImage: 'https://images.unsplash.com/photo-1629198728070-7a5482348ebf?q=80&w=800&auto=format&fit=crop',
+    mainImage: '/images/product-1.jpg',
     gallery: [
-      'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?q=80&w=800&auto=format&fit=crop'
+      '/images/product-1.jpg'
     ]
   },
   {
     id: '2',
     slug: 'pre-wax-cleansing-gel',
     title: 'Pre-Wax Cleansing Gel',
-    brand: "Lumière Professional",
+    brand: "LumiÃ¨re Professional",
     price: 1800,
     rating: 4.8,
     reviewCount: 84,
@@ -38,7 +38,7 @@ const MOCK_PRODUCTS = [
     benefits: ['Cools and soothes', 'Removes surface oils', 'Prevents post-wax breakouts'],
     sizeQuantity: '500ml / 16.9 fl oz',
     availability: 'In Stock',
-    mainImage: "https://images.unsplash.com/photo-1611078489935-0cb964de46d6?q=80&w=800&auto=format&fit=crop",
+    mainImage: "/images/product-2.jpg",
     gallery: []
   }
 ];
@@ -54,7 +54,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       *[_type == "product" && slug.current == $slug][0] {
         "id": _id,
         "title": name,
-        "brand": "Lumière Professional",
+        "brand": "LumiÃ¨re Professional",
         price,
         "originalPrice": price * 1.2,
         shortDescription,
@@ -122,3 +122,4 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     </div>
   );
 }
+

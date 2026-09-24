@@ -1,10 +1,10 @@
-'use client';
+﻿"use client";
 
-import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { ArrowRight, Star } from 'lucide-react';
+import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { ArrowRight, Star } from "lucide-react";
 
 export interface HeroSectionProps {
   title: string;
@@ -25,8 +25,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     <section className="relative min-h-[90vh] md:min-h-screen w-full flex items-center justify-center overflow-hidden bg-brand-dark pt-20">
       {/* Cinematic Background Image */}
       <div className="absolute inset-0 w-full h-full">
-        <Image 
-          src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=2000&auto=format&fit=crop" 
+        <Image
+          src="/images/hero-bg.jpg"
           alt="Luxury Salon Spa"
           fill
           className="object-cover opacity-50"
@@ -38,21 +38,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       </div>
 
       <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 w-full max-w-5xl mx-auto py-20">
-        {/* Floating Trust Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-          className="flex items-center gap-2 px-4 py-2 rounded-full border border-brand-gold/30 bg-black/40 backdrop-blur-md mb-8"
-        >
-          <div className="flex gap-1">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <Star key={i} size={14} className="fill-brand-gold text-brand-gold" />
-            ))}
-          </div>
-          <span className="text-brand-gold text-xs font-semibold uppercase tracking-widest">Trusted by 500+ Top Salons</span>
-        </motion.div>
-
         {/* Editorial Headline */}
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
@@ -60,7 +45,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           transition={{ duration: 1, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
           className="text-5xl md:text-7xl lg:text-[6rem] font-serif text-white leading-[1.1] tracking-tight mb-6 drop-shadow-lg"
         >
-          The Pinnacle of <br className="hidden md:block"/> Professional Waxing.
+          The Pinnacle of <br className="hidden md:block" /> Professional
+          Waxing.
         </motion.h1>
 
         {/* Elegant Subtitle */}
@@ -82,8 +68,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         >
           <Link href={ctaHref}>
             <button className="group relative flex h-14 items-center justify-center gap-3 overflow-hidden rounded-full bg-brand-gold px-8 text-sm font-medium text-white transition-transform hover:scale-105 active:scale-95">
-              <span className="relative z-10 tracking-widest uppercase">{ctaLabel}</span>
-              <ArrowRight size={18} className="relative z-10 transition-transform group-hover:translate-x-1" />
+              <span className="relative z-10 tracking-widest uppercase">
+                {ctaLabel}
+              </span>
+              <ArrowRight
+                size={18}
+                className="relative z-10 transition-transform group-hover:translate-x-1"
+              />
               <div className="absolute inset-0 z-0 bg-brand-gold-dark opacity-0 transition-opacity group-hover:opacity-100" />
             </button>
           </Link>
@@ -101,3 +92,4 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 };
 
 export default HeroSection;
+

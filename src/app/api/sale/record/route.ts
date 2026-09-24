@@ -67,7 +67,8 @@ export async function POST(req: NextRequest) {
     const orderTotal = enrichedItems.reduce((sum, i) => sum + i.lineTotal, 0);
 
     // Build the Sanity document
-    const doc: Record<string, unknown> = {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const doc: any = {
       _type: "saleRecord",
       orderId,
       completedAt,

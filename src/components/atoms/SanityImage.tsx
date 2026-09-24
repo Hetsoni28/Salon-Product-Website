@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import Image from "next/image";
@@ -28,7 +28,7 @@ export const SanityImage: React.FC<SanityImageProps> = ({
   quality = 85,
   sizes,
   className,
-  fallbackSrc = "https://images.unsplash.com/photo-1611078489935-0cb964de46d6?q=80&w=800&auto=format&fit=crop",
+  fallbackSrc = "/images/product-1.jpg",
 }) => {
   const [loaded, setLoaded] = useState(false);
 
@@ -82,3 +82,4 @@ export const SanityImage: React.FC<SanityImageProps> = ({
 };
 
 export default SanityImage;
+
