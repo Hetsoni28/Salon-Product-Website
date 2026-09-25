@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Check, ArrowRight, Loader2, ArrowLeft } from "lucide-react";
 import { useCart } from "@/lib/providers/CartProvider";
 import { useDealerAttribution } from "@/lib/providers/DealerAttributionProvider";
-import { Button, Input, Price } from "@/components/atoms";
+import { Button, Input, Price, SanityImage } from "@/components/atoms";
 
 type CheckoutStep = "info" | "payment" | "success";
 
@@ -352,19 +352,13 @@ export default function CheckoutClient() {
               {items.map((item) => (
                 <div key={item.id} className="flex gap-4">
                   <div className="relative w-16 h-16 shrink-0 bg-brand-cream rounded-lg overflow-hidden border border-brand-divider">
-                    {typeof item.image === "string" && item.image ? (
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        fill
-                        sizes="64px"
-                        className="object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-300 text-[10px] font-medium">
-                        IMG
-                      </div>
-                    )}
+                    <SanityImage
+                      image={item.image}
+                      alt={item.name}
+                      fill
+                      sizes="64px"
+                      className="object-cover"
+                    />
                     <div className="absolute -top-2 -right-2 bg-brand-charcoal text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full font-medium">
                       {item.quantity}
                     </div>
