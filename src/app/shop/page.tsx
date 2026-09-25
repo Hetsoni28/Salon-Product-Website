@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { client } from '@/sanity/client';
 import { allProductsQuery } from '@/sanity/queries';
 import { Button, Price, SanityImage } from '@/components/atoms';
+import { BreadCrumb } from '@/components/molecules';
 import { ShoppingCart, Eye, ShoppingBag } from 'lucide-react';
 
 export const revalidate = 60;
@@ -31,6 +32,14 @@ export default async function ShopPage() {
   return (
     <div className="min-h-screen bg-brand-cream pt-32 pb-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <BreadCrumb 
+          items={[
+            { label: 'Home', href: '/' },
+            { label: 'Shop' }
+          ]} 
+          className="mb-8"
+        />
 
         {/* Page Header */}
         <div className="flex flex-col items-center text-center mb-16">

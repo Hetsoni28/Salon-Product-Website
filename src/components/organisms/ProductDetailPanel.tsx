@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SanityImage, Button, Price } from "@/components/atoms";
-import { QuantitySelector, ProductCard } from "@/components/molecules";
+import { QuantitySelector, ProductCard, BreadCrumb } from "@/components/molecules";
 import { ShoppingCart, Heart, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 import { useCart } from "@/lib/providers/CartProvider";
@@ -28,7 +28,7 @@ export interface ProductDetailPanelProps {
 export const ProductDetailPanel: React.FC<ProductDetailPanelProps> = ({
   id,
   title,
-  brand = "LumiÃ¨re Professional",
+  brand = "LUMIÈRE Professional",
   price,
   originalPrice,
   shortDescription,
@@ -64,6 +64,15 @@ export const ProductDetailPanel: React.FC<ProductDetailPanelProps> = ({
 
   return (
     <div className="container-luxury max-w-7xl mx-auto py-12 md:py-20">
+      <div className="mb-8 md:mb-12">
+        <BreadCrumb 
+          items={[
+            { label: 'Home', href: '/' },
+            { label: 'Shop', href: '/shop' },
+            { label: title }
+          ]} 
+        />
+      </div>
       <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 mb-32">
         {/* Left: Product Gallery */}
         <div className="w-full lg:w-1/2 flex flex-col gap-6">
