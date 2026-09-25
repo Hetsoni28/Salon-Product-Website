@@ -95,8 +95,8 @@ export default function BlogPage() {
 
         {/* Featured Post */}
         <div className="mb-20">
-          <div className="group relative rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 bg-white flex flex-col lg:flex-row h-auto lg:h-[28rem]">
-            <div className="w-full lg:w-3/5 h-[300px] lg:h-full relative overflow-hidden">
+          <div className="group relative rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 bg-white flex flex-col lg:flex-row h-auto lg:h-112">
+            <div className="w-full lg:w-3/5 h-75 lg:h-full relative overflow-hidden">
               <Image
                 src={featuredPost.image}
                 alt={featuredPost.title}
