@@ -8,3 +8,4 @@ export * from './FormField';
 export * from './BreadCrumb';
 export * from './QuantitySelector';
 export * from './TestimonialCard';
+export * from './AddToCartButton';

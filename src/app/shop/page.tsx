@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { client } from '@/sanity/client';
 import { allProductsQuery } from '@/sanity/queries';
 import { Button, Price, SanityImage } from '@/components/atoms';
-import { BreadCrumb } from '@/components/molecules';
-import { ShoppingCart, Eye, ShoppingBag } from 'lucide-react';
+import { BreadCrumb, AddToCartButton } from '@/components/molecules';
+import { Eye, ShoppingBag } from 'lucide-react';
 
 export const revalidate = 60;
 
@@ -100,12 +100,14 @@ export default async function ShopPage() {
                   </p>
 
                   <div className="flex flex-col sm:flex-row gap-4 mt-auto">
-                    <Link href={`/product/${slug}`} className="flex-1">
-                      <Button variant="primary" className="w-full h-12 rounded-full uppercase tracking-widest text-xs font-semibold gap-2 group/btn">
-                        <ShoppingCart size={16} className="group-hover/btn:scale-110 transition-transform" />
-                        Add to Cart
-                      </Button>
-                    </Link>
+                    <div className="flex-1">
+                      <AddToCartButton
+                        id={product.id}
+                        title={product.title}
+                        price={product.price}
+                        image={product.image}
+                      />
+                    </div>
                     <Link href={`/product/${slug}`} className="flex-1">
                       <Button variant="outline" className="w-full h-12 rounded-full uppercase tracking-widest text-xs font-semibold gap-2 border-brand-divider text-brand-charcoal hover:border-brand-gold hover:bg-brand-gold hover:text-white">
                         <Eye size={16} />
