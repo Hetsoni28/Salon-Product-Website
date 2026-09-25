@@ -283,7 +283,7 @@ export const DashboardClient: React.FC<DashboardClientProps> = ({
                 };
                 const phone = order.customerPhone?.replace(/\D/g, '');
                 const waMsg = phone ? (() => {
-                  const msg = `Hello ${order.customerName || order.salonName || 'there'},\n\nYour order with LUMIÈRE Professional has been *confirmed*! 🎉\n\n*Total: ₹${order.orderTotal}*\n\nWe will dispatch your products shortly. Thank you for choosing LUMIÈRE!`;
+                  const msg = `Hello ${order.customerName || order.salonName || 'there'},\n\nYour order with LUMIERE Professional has been *confirmed*! \u{1F389}\n\n*Total: \u20B9${order.orderTotal}*\n\nWe will dispatch your products shortly. Thank you for choosing LUMIERE!`;
                   return `https://wa.me/91${phone}?text=${encodeURIComponent(msg)}`;
                 })() : null;
                 return (
