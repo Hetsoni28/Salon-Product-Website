@@ -9,10 +9,7 @@ export const allProductsQuery = groq`
     price,
     "originalPrice": price * 1.2,
     shortDescription,
-    "rating": 5,
-    "reviewCount": 124,
-    "badge": availability,
-    "category": category->name
+    "badge": availability
   }
 `;
 
@@ -25,7 +22,7 @@ export const allCategoriesQuery = groq`
 `;
 
 export const categoryProductsQuery = groq`
-  *[_type == "product" && category->slug.current == $categorySlug] | order(_createdAt desc) {
+  *[_type == "product"] | order(_createdAt desc) {
     "id": _id,
     "title": name,
     "slug": slug.current,
@@ -33,10 +30,7 @@ export const categoryProductsQuery = groq`
     price,
     shortDescription,
     "originalPrice": price * 1.2,
-    "rating": 5,
-    "reviewCount": 124,
-    "badge": availability,
-    "category": category->name
+    "badge": availability
   }
 `;
 
