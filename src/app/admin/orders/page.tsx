@@ -5,6 +5,28 @@ import { ShoppingBag, Phone, User, Store, Clock, CheckCircle2, Truck, Package, X
 
 export const revalidate = 0; // Always fresh
 
+interface OrderItem {
+  productName: string;
+  quantity: number;
+  unitPrice: number;
+  lineTotal: number;
+}
+
+interface Order {
+  _id: string;
+  orderId: string;
+  completedAt: string;
+  customerName?: string;
+  customerPhone?: string;
+  customerEmail?: string;
+  salonName?: string;
+  orderTotal: number;
+  totalQuantity: number;
+  status?: string;
+  dealerName?: string;
+  items?: OrderItem[];
+}
+
 const ordersQuery = groq`
   *[_type == "saleRecord"] | order(completedAt desc) {
     _id,
@@ -42,16 +64,16 @@ function formatDate(dt: string) {
   });
 }
 
-function buildWAMessage(order: Record<string, unknown>) {
-  const items = (order.items as { productName: string; quantity: number; unitPrice: number }[])
+function buildWAMessage(order: Order) {
+  const items = order.items
     ?.map((i) => `  - ${i.productName} × ${i.quantity} @ ₹${i.unitPrice}`)
     .join('\n');
   const msg = `Hello ${order.customerName || order.salonName},\n\nYour order with LUMIÈRE Professional has been *confirmed*! 🎉\n\n*Order Summary:*\n${items}\n\n*Total: ₹${order.orderTotal}*\n\nWe will dispatch your products shortly. Thank you for choosing LUMIÈRE!`;
-  return `https://wa.me/91${(order.customerPhone as string)?.replace(/\D/g, '')}?text=${encodeURIComponent(msg)}`;
+  return `https://wa.me/91${order.customerPhone?.replace(/\D/g, '')}?text=${encodeURIComponent(msg)}`;
 }
 
 export default async function AdminOrdersPage() {
-  let orders: Record<string, unknown>[] = [];
+  let orders: Order[] = [];
   try {
     orders = await client.fetch(ordersQuery);
   } catch {
@@ -107,8 +129,8 @@ export default async function AdminOrdersPage() {
           </div>
         ) : (
           <div className="space-y-4">
-            {orders.map((order) => {
-              const status = (order.status as string) || 'pending';
+          {orders.map((order) => {
+              const status = order.status || 'pending';
               const cfg = STATUS_CONFIG[status] || STATUS_CONFIG.pending;
               const Icon = cfg.icon;
               const waLink = order.customerPhone ? buildWAMessage(order) : null;

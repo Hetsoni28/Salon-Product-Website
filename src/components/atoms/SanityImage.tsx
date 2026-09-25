@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from "react";
 import Image from "next/image";
@@ -6,7 +6,7 @@ import { cn } from "@/lib/cn";
 import { urlFor } from "@/sanity/client";
 
 export interface SanityImageProps {
-  image?: Record<string, unknown> | null;
+  image?: Record<string, unknown> | string | null;
   alt: string;
   width?: number;
   height?: number;
