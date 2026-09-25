@@ -136,4 +136,3 @@ export function ProductBenefitsSection() {
 }
 
 export default ProductBenefitsSection;
-
