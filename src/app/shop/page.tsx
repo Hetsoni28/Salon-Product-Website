@@ -1,9 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { client } from '@/sanity/client';
 import { allProductsQuery } from '@/sanity/queries';
-import { Button, Price } from '@/components/atoms';
+import { Button, Price, SanityImage } from '@/components/atoms';
 import { ShoppingCart, Eye, ShoppingBag } from 'lucide-react';
 
 export const revalidate = 60;
@@ -13,13 +12,6 @@ function getSlug(slug: string | { current: string } | undefined): string {
   if (!slug) return '';
   if (typeof slug === 'string') return slug;
   return slug.current || '';
-}
-
-// Helper to safely extract image src
-function getImageSrc(image: string | Record<string, unknown> | null | undefined): string | null {
-  if (!image) return null;
-  if (typeof image === 'string') return image;
-  return null; // Let SanityImage handle sanity objects
 }
 
 interface Product {
@@ -58,27 +50,20 @@ export default async function ShopPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
           {products.map((product) => {
             const slug = getSlug(product.slug);
-            const imageSrc = getImageSrc(product.image);
 
             return (
               <div key={product.id} className="group flex flex-col bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-brand-divider">
 
                 {/* Image Container — position:relative is required for fill images */}
-                <div className="relative w-full aspect-video bg-gray-50 overflow-hidden">
+                <div className="relative w-full aspect-square bg-[#F8F8F6] overflow-hidden">
                   <Link href={`/product/${slug}`} className="block absolute inset-0">
-                    {imageSrc ? (
-                      <Image
-                        src={imageSrc}
-                        alt={product.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 640px"
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-brand-cream-dark flex items-center justify-center text-gray-300 text-sm">
-                        No Image
-                      </div>
-                    )}
+                    <SanityImage
+                      image={product.image}
+                      alt={product.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 640px"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
                   </Link>
 
                   {product.badge && (
