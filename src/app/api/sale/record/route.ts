@@ -33,6 +33,8 @@ interface SalePayload {
   } | null;
   customerName?: string;
   customerPhone?: string;
+  customerEmail?: string;
+  salonName?: string;
 }
 
 export async function POST(req: NextRequest) {
@@ -99,6 +101,9 @@ export async function POST(req: NextRequest) {
       orderTotal,
       customerName: body.customerName || null,
       customerPhone: body.customerPhone || null,
+      customerEmail: body.customerEmail || null,
+      salonName: body.salonName || null,
+      status: "pending",
     };
 
     // Attach dealer attribution if present

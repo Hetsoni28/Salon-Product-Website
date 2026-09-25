@@ -1,4 +1,4 @@
-﻿import { defineField, defineType } from 'sanity';
+import { defineField, defineType } from 'sanity';
 
 /**
  * Sale Record — created ONLY when a purchase is verified/completed.
@@ -94,6 +94,34 @@ export const saleRecord = defineType({
       name: 'customerPhone',
       title: 'Customer Phone',
       type: 'string',
+    }),
+    defineField({
+      name: 'customerEmail',
+      title: 'Customer Email',
+      type: 'string',
+    }),
+    defineField({
+      name: 'salonName',
+      title: 'Salon Name',
+      type: 'string',
+    }),
+
+    // === Order Status ===
+    defineField({
+      name: 'status',
+      title: 'Order Status',
+      type: 'string',
+      options: {
+        list: [
+          { title: '🟡 Pending', value: 'pending' },
+          { title: '✅ Confirmed', value: 'confirmed' },
+          { title: '🚚 Dispatched', value: 'dispatched' },
+          { title: '📦 Delivered', value: 'delivered' },
+          { title: '❌ Cancelled', value: 'cancelled' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'pending',
     }),
   ],
   preview: {
