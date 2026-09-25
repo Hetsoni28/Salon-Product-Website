@@ -1,7 +1,8 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Heart, ShoppingCart } from 'lucide-react';
 import { Badge, Rating, Price, Button, SanityImage } from '@/components/atoms';
@@ -56,9 +57,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         <Link href={`/product/${slug}`} className="block h-full w-full">
           <motion.div whileHover={{ scale: 1.05 }} className="h-full w-full transition-transform duration-300">
             {typeof image === 'string' ? (
-               <img src={image} alt={title} className="object-cover w-full h-full absolute inset-0" />
+               <div className="relative w-full h-full">
+                 <Image src={image} alt={title} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover absolute inset-0" />
+               </div>
             ) : (
-               <SanityImage image={image} alt={title} fill className="object-cover" />
+               <SanityImage image={image} alt={title} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover" />
             )}
           </motion.div>
         </Link>

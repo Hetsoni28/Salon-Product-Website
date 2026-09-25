@@ -28,8 +28,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           alt="Premium Salon Environment"
           fill
           priority
+          sizes="100vw"
+          quality={85}
           className="object-cover object-center scale-105"
-          unoptimized
         />
         {/* Cinematic atmospheric overlays:
             - Left-to-right gradient ensures crystal-clear readability for typography

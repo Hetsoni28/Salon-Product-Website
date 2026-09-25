@@ -3,7 +3,13 @@ import { createImageUrlBuilder } from "@sanity/image-url";
 import { sanityConfig } from "./config";
 
 // ── Read client (public, safe in RSC / browser) ─────────────────────────────
-export const client = createClient(sanityConfig);
+export const client = createClient({
+  ...sanityConfig,
+  stega: { enabled: false },
+  // Phase 21: Aggressive caching. Cache API responses for 1 hour
+  // If you need immediate updates during development, lower this or use on-demand revalidation.
+  fetch: { next: { revalidate: 3600 } }
+});
 
 // ── Write client (uses API token — server-side only) ────────────────────────
 export const writeClient = createClient({
