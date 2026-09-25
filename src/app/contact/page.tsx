@@ -32,7 +32,8 @@ export default function ContactPage() {
             Get in Touch
           </h1>
           <p className="text-lg md:text-xl text-gray-300 font-light max-w-2xl mx-auto leading-relaxed">
-            Our dedicated team is ready to assist salon owners, estheticians, and dealers nationwide.
+            Our dedicated team is ready to assist salon owners, estheticians,
+            and dealers nationwide.
           </p>
         </div>
       </section>
@@ -41,36 +42,53 @@ export default function ContactPage() {
         <div className="max-w-5xl mx-auto">
           {/* Direct Contact Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-20 -mt-32 relative z-20">
-            <a 
-              href="tel:+919327775751" 
+            <a
+              href="tel:+919327775751"
               className="group flex flex-col items-center text-center bg-white p-10 rounded-3xl shadow-xl shadow-brand-charcoal/5 border border-brand-divider hover:border-brand-gold transition-colors duration-300"
             >
               <div className="w-16 h-16 rounded-full bg-brand-cream flex items-center justify-center text-brand-gold mb-6 group-hover:scale-110 transition-transform duration-300">
                 <Phone size={28} />
               </div>
-              <h3 className="font-serif text-2xl text-brand-dark mb-2">Phone Support</h3>
-              <p className="text-gray-500 font-light mb-4">Tap to call our direct support line.</p>
-              <p className="text-brand-charcoal font-semibold text-lg tracking-wide">+91 93277 75751</p>
+              <h3 className="font-serif text-2xl text-brand-dark mb-2">
+                Phone Support
+              </h3>
+              <p className="text-gray-500 font-light mb-4">
+                Tap to call our direct support line.
+              </p>
+              <p className="text-brand-charcoal font-semibold text-lg tracking-wide">
+                +91 93277 75751
+              </p>
             </a>
 
-            <a 
-              href="mailto:info@lumieresalons.com" 
+            <a
+              href="mailto:info@lumieresalons.com"
               className="group flex flex-col items-center text-center bg-white p-10 rounded-3xl shadow-xl shadow-brand-charcoal/5 border border-brand-divider hover:border-brand-gold transition-colors duration-300"
             >
               <div className="w-16 h-16 rounded-full bg-brand-cream flex items-center justify-center text-brand-gold mb-6 group-hover:scale-110 transition-transform duration-300">
                 <Mail size={28} />
               </div>
-              <h3 className="font-serif text-2xl text-brand-dark mb-2">Email Us</h3>
-              <p className="text-gray-500 font-light mb-4">We usually respond within 24 hours.</p>
-              <p className="text-brand-charcoal font-semibold text-lg tracking-wide">info@lumieresalons.com</p>
+              <h3 className="font-serif text-2xl text-brand-dark mb-2">
+                Email Us
+              </h3>
+              <p className="text-gray-500 font-light mb-4">
+                We usually respond within 24 hours.
+              </p>
+              <p className="text-brand-charcoal font-semibold text-lg tracking-wide">
+                info@lumieresalons.com
+              </p>
             </a>
           </div>
 
           {/* Contact Form */}
           <div className="max-w-3xl mx-auto bg-white p-8 md:p-16 rounded-3xl shadow-sm border border-brand-divider">
             <div className="text-center mb-12">
-              <h2 className="font-serif text-3xl md:text-4xl text-brand-dark mb-4">Send a Message</h2>
-              <p className="text-gray-500 font-light">Fill out the form below and a representative will contact you shortly.</p>
+              <h2 className="font-serif text-3xl md:text-4xl text-brand-dark mb-4">
+                Send a Message
+              </h2>
+              <p className="text-gray-500 font-light">
+                Fill out the form below and a representative will contact you
+                shortly.
+              </p>
             </div>
 
             <form className="flex flex-col gap-8" action="/contact">

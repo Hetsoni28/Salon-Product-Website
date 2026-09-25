@@ -19,11 +19,11 @@ export default function PrivacyPolicyPage() {
 
         <div className="prose prose-brand max-w-none text-gray-600 font-light leading-relaxed space-y-6">
           <p>
-            At LUMIÈRE Professional (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;), we respect your
-            privacy and are committed to protecting your personal data. This
-            privacy policy will inform you as to how we look after your personal
-            data when you visit our website and tell you about your privacy
-            rights.
+            At LUMIÈRE Professional (&quot;we&quot;, &quot;our&quot;, or
+            &quot;us&quot;), we respect your privacy and are committed to
+            protecting your personal data. This privacy policy will inform you
+            as to how we look after your personal data when you visit our
+            website and tell you about your privacy rights.
           </p>
 
           <h2 className="font-serif text-2xl text-brand-charcoal pt-4 font-normal">

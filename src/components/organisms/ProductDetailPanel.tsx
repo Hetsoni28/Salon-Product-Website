@@ -7,6 +7,7 @@ import { QuantitySelector, ProductCard, BreadCrumb } from "@/components/molecule
 import { ShoppingCart, Heart, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 import { useCart } from "@/lib/providers/CartProvider";
+import { useWishlist } from "@/lib/providers/WishlistProvider";
 
 export interface ProductDetailPanelProps {
   id: string;
@@ -49,6 +50,8 @@ export const ProductDetailPanel: React.FC<ProductDetailPanelProps> = ({
   );
 
   const { addItem } = useCart();
+  const { toggleItem, isInWishlist } = useWishlist();
+  const isWishlisted = isInWishlist(id);
 
   const inStock = availability !== "Out of Stock";
 
@@ -226,11 +229,22 @@ export const ProductDetailPanel: React.FC<ProductDetailPanelProps> = ({
                 {inStock ? "Add to Cart" : "Out of Stock"}
               </Button>
               <Button
+                onClick={() => toggleItem({
+                  id,
+                  name: title,
+                  price,
+                  image: mainImage,
+                  slug: id // or actual slug if available, using id as fallback
+                })}
                 variant="outline"
                 size="lg"
-                className="w-14 h-14 shrink-0 rounded-full p-0 flex items-center justify-center border-brand-divider hover:border-brand-gold text-brand-charcoal hover:bg-brand-gold hover:text-white transition-colors"
+                className={`w-14 h-14 shrink-0 rounded-full p-0 flex items-center justify-center border-brand-divider hover:border-brand-gold transition-colors ${
+                  isWishlisted 
+                    ? "bg-brand-gold text-white border-brand-gold" 
+                    : "text-brand-charcoal hover:bg-brand-gold hover:text-white"
+                }`}
               >
-                <Heart size={20} />
+                <Heart size={20} className={isWishlisted ? "fill-current" : ""} />
               </Button>
             </div>
 

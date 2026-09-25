@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Search, Heart, ShoppingBag, Menu, X } from "lucide-react";
 import { NavLink } from "@/components/molecules";
 import { useCart } from "@/lib/providers/CartProvider";
+import { useWishlist } from "@/lib/providers/WishlistProvider";
 
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -17,6 +18,7 @@ export const Navbar = () => {
   const pathname = usePathname();
 
   const { cartCount, toggleCart } = useCart();
+  const { items: wishlistItems } = useWishlist();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -130,9 +132,14 @@ export const Navbar = () => {
 
             <Link
               href="/wishlist"
-              className={`transition-colors ${textColor} ${hoverColor}`}
+              className={`relative transition-colors ${textColor} ${hoverColor}`}
             >
               <Heart size={20} />
+              {mounted && wishlistItems.length > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 bg-brand-gold text-white text-2xs w-4 h-4 rounded-full flex items-center justify-center">
+                  {wishlistItems.length}
+                </span>
+              )}
             </Link>
 
             <button

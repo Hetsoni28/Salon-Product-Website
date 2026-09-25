@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     title: "LUMIÈRE | Professional Salon Supplies",
   },
   alternates: {
-    canonical: '/',
+    canonical: "/",
   },
 };
 
@@ -73,8 +73,8 @@ export default function RootLayout({
     logo: `${env.site.url}/logo.png`,
     sameAs: [
       "https://instagram.com/lumieresalons",
-      "https://facebook.com/lumieresalons"
-    ]
+      "https://facebook.com/lumieresalons",
+    ],
   };
 
   return (
@@ -85,7 +85,9 @@ export default function RootLayout({
       <body className="bg-brand-cream text-brand-charcoal antialiased selection:bg-brand-gold selection:text-white">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgStructuredData) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(orgStructuredData),
+          }}
         />
         <AppProviders>
           <SiteLayoutWrapper>{children}</SiteLayoutWrapper>

@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { Heart, ShoppingCart } from "lucide-react";
 import { Badge, Price, Button, SanityImage } from "@/components/atoms";
 import { useCart } from "@/lib/providers/CartProvider";
+import { useWishlist } from "@/lib/providers/WishlistProvider";
 
 export interface ProductCardProps {
   id: string;
@@ -18,7 +19,7 @@ export interface ProductCardProps {
   rating?: number;
   reviewCount?: number;
   badge?: string;
-  isWishlisted?: boolean;
+  isWishlisted?: boolean; // Keep for backwards compatibility, but hook overrides
   onWishlistToggle?: () => void;
 }
 
@@ -29,13 +30,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   price,
   originalPrice,
   image,
-  rating = 5,
-  reviewCount = 0,
   badge,
-  isWishlisted,
+  isWishlisted: propIsWishlisted,
   onWishlistToggle,
 }) => {
   const { addItem } = useCart();
+  const { toggleItem, isInWishlist } = useWishlist();
+
+  const isWishlisted = isInWishlist(id) || propIsWishlisted;
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -46,6 +48,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       image,
       quantity: 1,
     });
+  };
+
+  const handleWishlist = (e: React.MouseEvent) => {
+    e.preventDefault();
+    toggleItem({
+      id,
+      name: title,
+      price,
+      image,
+      slug
+    });
+    onWishlistToggle?.();
   };
 
   return (
@@ -86,10 +100,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </div>
         )}
         <button
-          onClick={(e) => {
-            e.preventDefault();
-            onWishlistToggle?.();
-          }}
+          onClick={handleWishlist}
           className="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-gray-600 shadow-sm backdrop-blur-sm transition-colors hover:text-red-500"
           aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
         >

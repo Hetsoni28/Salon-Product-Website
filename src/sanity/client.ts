@@ -8,7 +8,7 @@ export const client = createClient({
   stega: { enabled: false },
   // Phase 21: Aggressive caching. Cache API responses for 1 hour
   // If you need immediate updates during development, lower this or use on-demand revalidation.
-  fetch: { next: { revalidate: 3600 } }
+  fetch: { next: { revalidate: 3600 } },
 });
 
 // ── Write client (uses API token — server-side only) ────────────────────────
