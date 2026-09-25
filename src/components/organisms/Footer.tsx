@@ -170,7 +170,7 @@ export const Footer = () => {
 
         <div className="border-t border-brand-warm-gray pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-brand-cream-dark opacity-70">
           <p>
-            &copy; {new Date().getFullYear()} Lumière Skincare. All rights
+            &copy; {new Date().getFullYear()} LUMIÈRE Salon Supplies. All rights
             reserved.
           </p>
         </div>

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React from "react";
 import { motion } from "framer-motion";
@@ -8,24 +8,24 @@ import Image from "next/image";
 export function ProductBenefitsSection() {
   const benefits = [
     {
-      title: "Low melting point",
-      desc: "Ensures absolute client comfort and prevents burns.",
+      title: "Ultra-low melt temperature",
+      desc: "Maximum client comfort — zero risk of burns during application.",
     },
     {
-      title: "High elasticity",
-      desc: "Prevents breaking or snapping during the pull.",
+      title: "Superior elasticity",
+      desc: "No breaking or snapping mid-pull. One clean, confident removal.",
     },
     {
-      title: "Exceptional grip",
-      desc: "Grasps even the finest, shortest hairs on the first pass.",
+      title: "True-grip formula",
+      desc: "Captures even the finest, shortest hairs on the very first pass.",
     },
     {
-      title: "Clean release",
-      desc: "Leaves no sticky residue behind, reducing cleanup time.",
+      title: "Zero residue release",
+      desc: "Clean peel, no sticky aftermath — faster client turnover per day.",
     },
     {
-      title: "Dermatologist tested",
-      desc: "Suitable for ultra-sensitive skin areas like the face and bikini.",
+      title: "Hypoallergenic certified",
+      desc: "Safe for face, underarm, and Brazilian — even ultra-sensitive skin.",
     },
   ];
 
@@ -91,12 +91,12 @@ export function ProductBenefitsSection() {
               transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
             >
               <h2 className="text-4xl md:text-5xl font-serif text-brand-dark mb-6 leading-tight">
-                Unmatched Waxing <br /> Performance.
+                Why Salons Choose <br /> LUMIÈRE Wax.
               </h2>
               <p className="text-gray-600 mb-12 text-lg font-light leading-relaxed">
-                Our proprietary wax formula is designed specifically to make
-                hair removal efficient for the professional and painless for the
-                client.
+                Our proprietary wax formula is engineered to deliver faster
+                treatments, happier clients, and higher repeat bookings — every
+                session, every time.
               </p>
 
               <div className="space-y-8">

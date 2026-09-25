@@ -1,21 +1,29 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Leaf, Rabbit, ShieldCheck, Globe2 } from "lucide-react";
+import { Gem, Timer, Heart, Package } from "lucide-react";
 
 const benefits = [
-  { icon: Leaf, title: "100% Natural", description: "Pure botanical extracts" },
   {
-    icon: Rabbit,
-    title: "Cruelty Free",
-    description: "Never tested on animals",
+    icon: Gem,
+    title: "Salon Grade",
+    description: "Formulated exclusively for professional salon use",
   },
   {
-    icon: ShieldCheck,
-    title: "Pro Approved",
-    description: "Trusted by salons worldwide",
+    icon: Timer,
+    title: "Long-Lasting Results",
+    description: "Up to 4 weeks of smooth, hair-free skin per treatment",
   },
-  { icon: Globe2, title: "Eco-friendly", description: "Sustainable packaging" },
+  {
+    icon: Heart,
+    title: "Skin Safe",
+    description: "Gentle hypoallergenic formula for all skin types",
+  },
+  {
+    icon: Package,
+    title: "Bulk Available",
+    description: "Volume pricing and wholesale programs for dealers",
+  },
 ];
 
 export function BenefitsSection() {

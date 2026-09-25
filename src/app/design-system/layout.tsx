@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Design System | LUMIÈRE",
-  description: "Design System showcase for LUMIÈRE skincare brand",
+  description: "Design System showcase for LUMIÈRE professional salon supply brand",
 };
 
 const NAV_LINKS = [

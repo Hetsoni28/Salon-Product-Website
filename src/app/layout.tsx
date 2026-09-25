@@ -32,16 +32,16 @@ export const metadata: Metadata = {
     template: "%s | LUMIÈRE",
   },
   description:
-    "Discover LUMIÈRE's curated collection of premium, natural skincare products. Dermatologist-tested, cruelty-free formulas crafted for radiant skin.",
+    "LUMIÈRE supplies India's top salons with premium professional waxing products — hard wax beans, pre & post-care essentials, and salon accessories trusted by 10,000+ professionals.",
   keywords: [
-    "salon supplies",
-    "waxing",
-    "professional wax",
-    "natural skincare",
-    "premium beauty",
-    "cruelty free",
-    "dermatologist tested",
-    "Lumiere",
+    "salon supplies India",
+    "professional waxing",
+    "hard wax beans",
+    "pre wax gel",
+    "post wax oil",
+    "wax heater",
+    "salon dealer",
+    "Lumiere wax",
   ],
   openGraph: {
     type: "website",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     siteName: "LUMIÈRE",
     title: "LUMIÈRE | Professional Salon Supplies",
     description:
-      "Discover LUMIÈRE's curated collection of premium, natural skincare products.",
+      "Premium professional waxing supplies for salons across India. Trusted by 10,000+ beauticians.",
   },
   twitter: {
     card: "summary_large_image",
