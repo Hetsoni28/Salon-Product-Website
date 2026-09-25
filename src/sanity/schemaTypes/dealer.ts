@@ -1,4 +1,4 @@
-﻿import { defineField, defineType } from 'sanity';
+import { defineField, defineType } from 'sanity';
 
 export default defineType({
   name: 'dealer',
@@ -66,10 +66,44 @@ export default defineType({
       description: 'Curated product list for this dealer. Leave blank to show all products.',
     }),
 
-    // === Performance Stats (manually entered) ===
+    // === Performance Stats (manually entered or calculated) ===
     defineField({ name: 'yearsExperience', title: 'Years of Experience', type: 'number' }),
     defineField({ name: 'clientsServed', title: 'Clients Served', type: 'number' }),
     defineField({ name: 'rating', title: 'Rating (1-5)', type: 'number' }),
+
+    // === Automated Sales Tracking ===
+    defineField({
+      name: 'totalSalesAmount',
+      title: 'Total Sales Amount (INR)',
+      type: 'number',
+      readOnly: true,
+      description: 'Auto-updated when a sale is completed.',
+      initialValue: 0,
+    }),
+    defineField({
+      name: 'totalItemsSold',
+      title: 'Total Items Sold',
+      type: 'number',
+      readOnly: true,
+      description: 'Auto-updated when a sale is completed.',
+      initialValue: 0,
+    }),
+    defineField({
+      name: 'productsSold',
+      title: 'Products Sold Breakdown',
+      type: 'array',
+      readOnly: true,
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({ name: 'productId', type: 'string', title: 'Product ID' }),
+            defineField({ name: 'productName', type: 'string', title: 'Product Name' }),
+            defineField({ name: 'quantity', type: 'number', title: 'Total Sold' }),
+          ]
+        }
+      ]
+    }),
 
     // === SEO ===
     defineField({ name: 'seo', title: 'SEO', type: 'seo' }),

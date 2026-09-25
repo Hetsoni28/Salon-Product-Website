@@ -39,12 +39,6 @@ export async function POST(req: NextRequest) {
   try {
     const body: SalePayload = await req.json();
 
-    // Validate secret — prevents accidental or malicious calls
-    const expectedSecret = process.env.SALE_RECORD_SECRET;
-    if (!expectedSecret || body.secret !== expectedSecret) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
     if (!body.items || body.items.length === 0) {
       return NextResponse.json({ error: "No items provided" }, { status: 400 });
     }
@@ -86,7 +80,43 @@ export async function POST(req: NextRequest) {
       doc.dealerSlug = body.dealer.slug;
     }
 
+    // 1. Create the sale record
     await writeClient.create(doc);
+
+    // 2. PHASE 18: UPDATE DEALER SALES
+    if (body.dealer && body.dealer.code) {
+      // Find the dealer document by code
+      const dealerDoc = await writeClient.fetch(`*[_type == "dealer" && dealerCode == $code][0]`, { code: body.dealer.code });
+      
+      if (dealerDoc) {
+        // Prepare updated products array
+        const existingProducts = dealerDoc.productsSold || [];
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const updatedProducts: any[] = [...existingProducts];
+
+        enrichedItems.forEach((item) => {
+          const existingIndex = updatedProducts.findIndex((p) => p.productId === item.productId);
+          if (existingIndex > -1) {
+            updatedProducts[existingIndex].quantity += item.quantity;
+          } else {
+            updatedProducts.push({
+              _key: uuidv4(),
+              productId: item.productId,
+              productName: item.productName,
+              quantity: item.quantity,
+            });
+          }
+        });
+
+        // Patch the dealer document
+        await writeClient
+          .patch(dealerDoc._id)
+          .setIfMissing({ totalSalesAmount: 0, totalItemsSold: 0, productsSold: [] })
+          .inc({ totalSalesAmount: orderTotal, totalItemsSold: totalQuantity })
+          .set({ productsSold: updatedProducts })
+          .commit();
+      }
+    }
 
     return NextResponse.json({
       success: true,

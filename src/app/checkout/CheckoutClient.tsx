@@ -86,20 +86,23 @@ export default function CheckoutClient() {
     setPaymentStatus("processing");
 
     try {
-      const dealerId = attribution?.code || attribution?.slug || "direct";
-
       const payload = {
-        dealerId,
+        dealer: attribution ? {
+          slug: attribution.slug,
+          code: attribution.code,
+          name: attribution.name,
+        } : null,
         amount: cartTotal,
         customerName: formData.name,
         customerPhone: formData.phone,
         customerEmail: formData.email,
         salonName: formData.salonName,
         items: items.map((i) => ({
-          id: i.id,
-          name: i.name,
+          productId: i.id,
+          productName: i.name,
+          productSlug: i.id, // approximate
           quantity: i.quantity,
-          price: i.price,
+          unitPrice: i.price,
         })),
       };
 
@@ -132,7 +135,8 @@ export default function CheckoutClient() {
 
   // UPI Setup
   const merchantUpiId = process.env.NEXT_PUBLIC_UPI_ID || "lumiere@ybl";
-  const merchantName = process.env.NEXT_PUBLIC_MERCHANT_NAME || "LUMIERE Salon Supplies";
+  const merchantName =
+    process.env.NEXT_PUBLIC_MERCHANT_NAME || "LUMIERE Salon Supplies";
   const note = `Order by ${formData.salonName || formData.name}`;
   // standard UPI Intent URI
   const upiIntent = `upi://pay?pa=${merchantUpiId}&pn=${encodeURIComponent(
