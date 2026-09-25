@@ -111,14 +111,6 @@ export const Footer = () => {
             <ul className="space-y-4 text-sm text-brand-cream-dark">
               <li>
                 <Link
-                  href="/shipping"
-                  className="hover:text-brand-gold transition-colors"
-                >
-                  Shipping
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="/returns"
                   className="hover:text-brand-gold transition-colors"
                 >
@@ -135,10 +127,18 @@ export const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/track-order"
+                  href="/privacy"
                   className="hover:text-brand-gold transition-colors"
                 >
-                  Track Order
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/terms"
+                  className="hover:text-brand-gold transition-colors"
+                >
+                  Terms and Conditions
                 </Link>
               </li>
             </ul>
