@@ -87,11 +87,13 @@ export default function CheckoutClient() {
 
     try {
       const payload = {
-        dealer: attribution ? {
-          slug: attribution.slug,
-          code: attribution.code,
-          name: attribution.name,
-        } : null,
+        dealer: attribution
+          ? {
+              slug: attribution.slug,
+              code: attribution.code,
+              name: attribution.name,
+            }
+          : null,
         amount: cartTotal,
         customerName: formData.name,
         customerPhone: formData.phone,
@@ -341,15 +343,16 @@ export default function CheckoutClient() {
               {items.map((item) => (
                 <div key={item.id} className="flex gap-4">
                   <div className="relative w-16 h-16 shrink-0 bg-brand-cream rounded-lg overflow-hidden border border-brand-divider">
-                    {item.image ? (
+                    {typeof item.image === "string" && item.image ? (
                       <Image
-                        src={item.image as string}
+                        src={item.image}
                         alt={item.name}
                         fill
+                        sizes="64px"
                         className="object-cover"
                       />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-300">
+                      <div className="w-full h-full flex items-center justify-center text-gray-300 text-[10px] font-medium">
                         IMG
                       </div>
                     )}
