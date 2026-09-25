@@ -40,7 +40,9 @@ export const Navbar = () => {
   const isHomepage = pathname === "/";
   const isTransparent = isHomepage && !scrolled;
   const textColor = isTransparent ? "text-white" : "text-brand-charcoal";
-  const hoverColor = isTransparent ? "hover:text-brand-gold" : "hover:text-brand-gold-dark";
+  const hoverColor = isTransparent
+    ? "hover:text-brand-gold"
+    : "hover:text-brand-gold-dark";
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && searchQuery.trim()) {

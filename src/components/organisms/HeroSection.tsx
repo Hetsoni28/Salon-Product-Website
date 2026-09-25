@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, Star, Sparkles, ShieldCheck } from "lucide-react";
+import { ArrowRight, Sparkles, ShieldCheck } from "lucide-react";
 
 export interface HeroSectionProps {
   title?: string;
@@ -41,10 +41,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       {/* ── HERO CONTENT GRID ───────────────────────────────────── */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-32 pb-16 min-h-screen flex items-center">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center w-full">
-
           {/* ── LEFT: Typography & CTAs (col-span-7) ─────────────── */}
           <div className="lg:col-span-7 flex flex-col justify-center">
-
             {/* Eyebrow Pill */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
@@ -88,7 +86,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               className="text-white/85 text-lg sm:text-xl font-light leading-relaxed mb-8 max-w-xl"
             >
               Premium salon-use products designed for professional results.
-              Formulated for beauticians who demand smooth, flawless, and painless client sessions.
+              Formulated for beauticians who demand smooth, flawless, and
+              painless client sessions.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -120,34 +119,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 <div className="h-px w-8 bg-white/70 transition-all group-hover:w-12 group-hover:bg-brand-gold" />
               </Link>
             </motion.div>
-
-            {/* Trust Badges Bar */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.75 }}
-              className="flex flex-wrap items-center gap-8 mt-12 pt-8 border-t border-white/15"
-            >
-              {[
-                { value: "10,000+", label: "Verified Salons" },
-                { value: "100%", label: "Salon-Grade Pure" },
-                { value: "4.9 / 5", label: "Professional Rating" },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <p className="font-serif text-2xl font-semibold text-white">
-                    {stat.value}
-                  </p>
-                  <p className="text-xs text-white/60 tracking-wider uppercase mt-0.5">
-                    {stat.label}
-                  </p>
-                </div>
-              ))}
-            </motion.div>
           </div>
 
           {/* ── RIGHT: Product Feature & Premium Environment Card (col-span-5) ── */}
           <div className="lg:col-span-5 flex flex-col items-center lg:items-end justify-center relative">
-
             {/* Featured Product Floating Card */}
             <motion.div
               initial={{ opacity: 0, x: 40 }}
@@ -165,7 +140,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   Featured Product
                 </span>
                 <span className="text-white/70 text-xs font-mono uppercase tracking-wider flex items-center gap-1">
-                  <ShieldCheck size={14} className="text-brand-gold" /> Pro Exclusive
+                  <ShieldCheck size={14} className="text-brand-gold" /> Pro
+                  Exclusive
                 </span>
               </div>
 
@@ -210,36 +186,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 <ArrowRight size={14} />
               </Link>
             </motion.div>
-
-            {/* ── PREMIUM SALON ENVIRONMENT BADGE (Matching Mockup) ── */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.7 }}
-              className="mt-6 w-full max-w-sm rounded-2xl bg-black/60 backdrop-blur-md border border-white/15 px-6 py-4 flex items-center justify-between shadow-xl"
-            >
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-gold">
-                  Verified Standard
-                </p>
-                <p className="font-serif text-white text-base font-medium">
-                  Premium Salon Environment
-                </p>
-              </div>
-              <div className="flex items-center gap-1 bg-white/10 px-2.5 py-1.5 rounded-lg border border-white/10">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    size={11}
-                    className="text-brand-gold"
-                    fill="#C8A882"
-                  />
-                ))}
-              </div>
-            </motion.div>
-
           </div>
-
         </div>
       </div>
     </section>
