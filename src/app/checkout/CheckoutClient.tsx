@@ -13,7 +13,7 @@ import { Button, Input, Price } from "@/components/atoms";
 type CheckoutStep = "info" | "payment" | "success";
 
 export default function CheckoutClient() {
-  const { items, cartTotal, clearCart } = useCart();
+  const { items, cartTotal, clearCart, isHydrated } = useCart();
   const { attribution } = useDealerAttribution();
   const router = useRouter();
 
@@ -32,14 +32,23 @@ export default function CheckoutClient() {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  // Protect route
+  // Wait for cart to hydrate from localStorage, THEN redirect if empty
   useEffect(() => {
-    if (items.length === 0 && step !== "success") {
+    if (isHydrated && items.length === 0 && step !== "success") {
       router.push("/shop");
     }
-  }, [items.length, step, router]);
+  }, [isHydrated, items.length, step, router]);
 
-  if (items.length === 0 && step !== "success") {
+  // Show spinner while cart is loading from localStorage
+  if (!isHydrated) {
+    return (
+      <div className="flex items-center justify-center min-h-[50vh]">
+        <Loader2 className="animate-spin text-brand-gold" size={32} />
+      </div>
+    );
+  }
+
+  if (isHydrated && items.length === 0 && step !== "success") {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
         <Loader2 className="animate-spin text-brand-gold" size={32} />

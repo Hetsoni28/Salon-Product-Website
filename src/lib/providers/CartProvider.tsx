@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
@@ -13,6 +13,7 @@ export interface CartItem {
 interface CartContextType {
   items: CartItem[];
   isCartOpen: boolean;
+  isHydrated: boolean;
   addItem: (item: Omit<CartItem, 'quantity'> & { quantity?: number }) => void;
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
@@ -31,7 +32,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Load from local storage on mount
   useEffect(() => {
-    setIsMounted(true);
     const savedCart = localStorage.getItem('lumiere_cart');
     if (savedCart) {
       try {
@@ -40,6 +40,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         console.error('Failed to parse cart');
       }
     }
+    setIsMounted(true); // Mark as hydrated AFTER loading from localStorage
   }, []);
 
   // Save to local storage when items change
@@ -88,6 +89,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       value={{
         items,
         isCartOpen,
+        isHydrated: isMounted,
         addItem,
         removeItem,
         updateQuantity,
