@@ -55,6 +55,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "LUMIÈRE | Professional Salon Supplies",
   },
+  alternates: {
+    canonical: '/',
+  },
 };
 
 export default function RootLayout({
@@ -62,12 +65,28 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const orgStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "LUMIÈRE Salon Supplies",
+    url: env.site.url,
+    logo: `${env.site.url}/logo.png`,
+    sameAs: [
+      "https://instagram.com/lumieresalons",
+      "https://facebook.com/lumieresalons"
+    ]
+  };
+
   return (
     <html
       lang="en"
       className={`${inter.variable} ${cormorant.variable} ${geistMono.variable}`}
     >
       <body className="bg-brand-cream text-brand-charcoal antialiased selection:bg-brand-gold selection:text-white">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgStructuredData) }}
+        />
         <AppProviders>
           <SiteLayoutWrapper>{children}</SiteLayoutWrapper>
         </AppProviders>
