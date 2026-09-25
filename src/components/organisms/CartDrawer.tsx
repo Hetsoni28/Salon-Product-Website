@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -126,11 +126,19 @@ export const CartDrawer = () => {
                   <span className="text-brand-charcoal font-medium">Subtotal</span>
                   <Price amount={cartTotal} className="text-2xl" />
                 </div>
-                <Button variant="primary" size="lg" className="w-full rounded-full h-14 uppercase tracking-widest text-sm font-semibold">
+                <Button 
+                  variant="primary" 
+                  size="lg" 
+                  className="w-full rounded-full h-14 uppercase tracking-widest text-sm font-semibold"
+                  onClick={() => {
+                    toggleCart();
+                    window.location.href = '/checkout';
+                  }}
+                >
                   Proceed to Checkout
                 </Button>
                 <p className="text-center text-xs text-gray-400 mt-4 font-light">
-                  Shipping and taxes calculated at checkout.
+                  Taxes calculated at checkout.
                 </p>
               </div>
             )}
