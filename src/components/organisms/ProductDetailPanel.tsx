@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -41,7 +41,7 @@ export const ProductDetailPanel: React.FC<ProductDetailPanelProps> = ({
   gallery = [],
   relatedProducts = [],
 }) => {
-  const allImages = [mainImage, ...gallery].filter(Boolean);
+  const allImages = [mainImage, ...(gallery ?? [])].filter(Boolean);
   const [activeImage, setActiveImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState<"description" | "howToUse">(
@@ -333,7 +333,10 @@ export const ProductDetailPanel: React.FC<ProductDetailPanelProps> = ({
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {relatedProducts.map((p: Record<string, unknown>) => (
-              <ProductCard key={p.id as string} {...(p as unknown as React.ComponentProps<typeof ProductCard>)} />
+              <ProductCard
+                key={p.id as string}
+                {...(p as unknown as React.ComponentProps<typeof ProductCard>)}
+              />
             ))}
           </div>
         </div>
