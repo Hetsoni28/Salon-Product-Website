@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { client } from '@/sanity/client';
 import { allProductsQuery } from '@/sanity/queries';
 import { Button, Price } from '@/components/atoms';
-import { ShoppingCart, Eye } from 'lucide-react';
+import { ShoppingCart, Eye, ShoppingBag } from 'lucide-react';
 
 export const revalidate = 60;
 
@@ -33,42 +33,8 @@ interface Product {
   badge?: string;
 }
 
-const FALLBACK_PRODUCTS: Product[] = [
-  {
-    id: '1',
-    slug: 'premium-hard-wax',
-    title: 'Premium Hard Wax Beans — Pearl',
-    shortDescription: 'Our signature professional-grade hard wax beans formulated for sensitive skin. Provides excellent grip on stubborn hairs with a gentle, skin-loving formula.',
-    price: 2400,
-    originalPrice: 3000,
-    badge: 'Bestseller',
-    image: 'https://images.unsplash.com/photo-1599305090598-fe179d501227?q=80&w=1200&auto=format&fit=crop',
-  },
-  {
-    id: '2',
-    slug: 'pre-wax-cleansing-gel',
-    title: 'Pre-Wax Cleansing Gel',
-    shortDescription: 'Prepares and sanitizes the skin before waxing. Removes oils, makeup, and deodorant to ensure optimal wax adhesion every time.',
-    price: 1800,
-    image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=1200&auto=format&fit=crop',
-  },
-  {
-    id: '3',
-    slug: 'post-wax-calming-oil',
-    title: 'Post-Wax Calming Oil',
-    shortDescription: 'Soothes and nourishes the skin after waxing. Infused with chamomile and aloe vera to reduce redness and calm irritation immediately.',
-    price: 1950,
-    originalPrice: 2200,
-    image: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?q=80&w=1200&auto=format&fit=crop',
-  },
-];
-
 export default async function ShopPage() {
-  let products: Product[] = await client.fetch(allProductsQuery);
-
-  if (!products || products.length === 0) {
-    products = FALLBACK_PRODUCTS;
-  }
+  const products: Product[] = await client.fetch(allProductsQuery);
 
   return (
     <div className="min-h-screen bg-brand-cream pt-32 pb-24">
@@ -88,7 +54,8 @@ export default async function ShopPage() {
         </div>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        {products && products.length > 0 ? (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
           {products.map((product) => {
             const slug = getSlug(product.slug);
             const imageSrc = getImageSrc(product.image);
@@ -157,7 +124,18 @@ export default async function ShopPage() {
               </div>
             );
           })}
-        </div>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center py-24 text-center">
+            <div className="w-16 h-16 rounded-full bg-brand-gold/10 flex items-center justify-center mb-6">
+              <ShoppingBag size={28} className="text-brand-gold" />
+            </div>
+            <h2 className="font-serif text-2xl text-brand-dark mb-3">Collection Coming Soon</h2>
+            <p className="text-gray-400 font-light max-w-sm">
+              Our curated range of professional salon products is being prepared. Check back shortly.
+            </p>
+          </div>
+        )}
 
       </div>
     </div>
