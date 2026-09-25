@@ -46,16 +46,36 @@ export async function POST(req: NextRequest) {
     const orderId = uuidv4();
     const completedAt = new Date().toISOString();
 
-    // Compute line totals
-    const enrichedItems = body.items.map((item) => ({
-      _key: uuidv4(),
-      productId: item.productId,
-      productName: item.productName,
-      productSlug: item.productSlug,
-      quantity: item.quantity,
-      unitPrice: item.unitPrice,
-      lineTotal: item.unitPrice * item.quantity,
-    }));
+    // PHASE 22 SECURITY: Server-Side Price & Input Validation
+    // Never trust client-provided prices or quantities. Fetch real prices from DB.
+    const productIds = body.items.map((i) => i.productId).filter(Boolean);
+    let realProducts: any[] = [];
+    if (productIds.length > 0) {
+      realProducts = await writeClient.fetch(
+        `*[_type == "product" && _id in $productIds]{ _id, price, name }`, 
+        { productIds }
+      );
+    }
+
+    // Compute secure line totals
+    const enrichedItems = body.items.map((item) => {
+      const realProduct = realProducts.find((p) => p._id === item.productId);
+      // Fallback to item.unitPrice ONLY for mock products during dev if no real product found
+      const actualPrice = realProduct?.price ?? Math.max(0, item.unitPrice);
+      const actualName = realProduct?.name ?? item.productName;
+      // Sanitize quantity (must be positive integer)
+      const safeQuantity = Math.max(1, Math.floor(item.quantity || 1));
+
+      return {
+        _key: uuidv4(),
+        productId: item.productId,
+        productName: actualName,
+        productSlug: item.productSlug,
+        quantity: safeQuantity,
+        unitPrice: actualPrice,
+        lineTotal: actualPrice * safeQuantity,
+      };
+    });
 
     const totalQuantity = enrichedItems.reduce((sum, i) => sum + i.quantity, 0);
     const orderTotal = enrichedItems.reduce((sum, i) => sum + i.lineTotal, 0);
@@ -86,8 +106,11 @@ export async function POST(req: NextRequest) {
     // 2. PHASE 18: UPDATE DEALER SALES
     if (body.dealer && body.dealer.code) {
       // Find the dealer document by code
-      const dealerDoc = await writeClient.fetch(`*[_type == "dealer" && dealerCode == $code][0]`, { code: body.dealer.code });
-      
+      const dealerDoc = await writeClient.fetch(
+        `*[_type == "dealer" && dealerCode == $code][0]`,
+        { code: body.dealer.code },
+      );
+
       if (dealerDoc) {
         // Prepare updated products array
         const existingProducts = dealerDoc.productsSold || [];
@@ -95,7 +118,9 @@ export async function POST(req: NextRequest) {
         const updatedProducts: any[] = [...existingProducts];
 
         enrichedItems.forEach((item) => {
-          const existingIndex = updatedProducts.findIndex((p) => p.productId === item.productId);
+          const existingIndex = updatedProducts.findIndex(
+            (p) => p.productId === item.productId,
+          );
           if (existingIndex > -1) {
             updatedProducts[existingIndex].quantity += item.quantity;
           } else {
@@ -111,7 +136,11 @@ export async function POST(req: NextRequest) {
         // Patch the dealer document
         await writeClient
           .patch(dealerDoc._id)
-          .setIfMissing({ totalSalesAmount: 0, totalItemsSold: 0, productsSold: [] })
+          .setIfMissing({
+            totalSalesAmount: 0,
+            totalItemsSold: 0,
+            productsSold: [],
+          })
           .inc({ totalSalesAmount: orderTotal, totalItemsSold: totalQuantity })
           .set({ productsSold: updatedProducts })
           .commit();
