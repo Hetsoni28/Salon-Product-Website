@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, ShieldCheck } from "lucide-react";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 
 export interface HeroSectionProps {
   title?: string;
@@ -44,19 +44,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center w-full">
           {/* ── LEFT: Typography & CTAs (col-span-7) ─────────────── */}
           <div className="lg:col-span-7 flex flex-col justify-center">
-            {/* Eyebrow Pill */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="inline-flex items-center gap-2 mb-6"
-            >
-              <span className="flex items-center gap-2 bg-brand-gold/20 border border-brand-gold/40 text-brand-gold text-[11px] font-semibold tracking-[0.2em] uppercase px-4 py-2 rounded-full backdrop-blur-md">
-                <Sparkles size={12} className="text-brand-gold" />
-                Salon Grade Waxing Essentials
-              </span>
-            </motion.div>
-
             {/* Editorial Headline from Mockup */}
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
