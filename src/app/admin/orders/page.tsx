@@ -2,7 +2,7 @@ import { client } from '@/sanity/client';
 import { groq } from 'next-sanity';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ShoppingBag, Phone, User, Store, Clock, CheckCircle2, Truck, Package, XCircle, ArrowLeft } from 'lucide-react';
+import { ShoppingBag, Phone, User, Store, Clock, CheckCircle2, Truck, Package, XCircle, ArrowLeft, ArrowRight } from 'lucide-react';
 
 export const revalidate = 0; // Always fresh
 
