@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, Heart, ShoppingBag, Menu, X } from "lucide-react";
 import { NavLink } from "@/components/molecules";
@@ -14,6 +14,7 @@ export const Navbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
+  const pathname = usePathname();
 
   const { cartCount, toggleCart } = useCart();
   const [mounted, setMounted] = useState(false);
@@ -36,9 +37,10 @@ export const Navbar = () => {
     { label: "Contact", href: "/contact" },
   ];
 
-  const isTransparent = false; // new hero is cream bg — always use solid navbar
-  const textColor = "text-brand-charcoal";
-  const hoverColor = "hover:text-brand-gold";
+  const isHomepage = pathname === "/";
+  const isTransparent = isHomepage && !scrolled;
+  const textColor = isTransparent ? "text-white" : "text-brand-charcoal";
+  const hoverColor = isTransparent ? "hover:text-brand-gold" : "hover:text-brand-gold-dark";
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && searchQuery.trim()) {

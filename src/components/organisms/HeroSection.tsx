@@ -4,182 +4,233 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowRight, Star, Sparkles, ShieldCheck } from "lucide-react";
 
 export interface HeroSectionProps {
-  title: string;
-  subtitle: string;
-  ctaLabel: string;
-  ctaHref: string;
+  title?: string;
+  subtitle?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
   image?: Record<string, unknown>;
   badge?: string;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
-  ctaLabel,
-  ctaHref,
+  ctaLabel = "Shop Products",
+  ctaHref = "/shop",
 }) => {
   return (
-    <section className="relative w-full min-h-screen bg-brand-cream overflow-hidden flex items-center">
-      {/* Subtle background texture */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 1px 1px, #2D2D2D 1px, transparent 0)",
-          backgroundSize: "32px 32px",
-        }}
-      />
+    <section className="relative w-full min-h-screen overflow-hidden flex items-center bg-brand-dark">
+      {/* ── FULL BACKGROUND HERO IMAGE ──────────────────────────── */}
+      <div className="absolute inset-0 w-full h-full z-0">
+        <Image
+          src="/images/hero-bg.jpg"
+          alt="Premium Salon Environment"
+          fill
+          priority
+          className="object-cover object-center scale-105"
+          unoptimized
+        />
+        {/* Cinematic atmospheric overlays:
+            - Left-to-right gradient ensures crystal-clear readability for typography
+            - Top & bottom vignettes blend smoothly with navbar & next sections */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/92 via-black/75 to-black/35" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
+      </div>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 pt-24 pb-12 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-0 items-center min-h-screen">
-        {/* ── LEFT: Text Content ─────────────────────────── */}
-        <div className="flex flex-col justify-center lg:pr-12">
-          {/* Eyebrow badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="inline-flex items-center gap-2 mb-8"
-          >
-            <span className="flex items-center gap-1.5 bg-brand-gold/10 border border-brand-gold/30 text-brand-gold text-[11px] font-semibold tracking-[0.18em] uppercase px-4 py-2 rounded-full">
-              <Star size={10} fill="currentColor" />
-              Trusted by 10,000+ Salons Across India
-            </span>
-          </motion.div>
+      {/* ── HERO CONTENT GRID ───────────────────────────────────── */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-32 pb-16 min-h-screen flex items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center w-full">
 
-          {/* Main Heading */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.9,
-              delay: 0.2,
-              ease: [0.25, 0.1, 0.25, 1],
-            }}
-            className="font-serif text-brand-dark leading-[1.05] tracking-tight mb-6"
-            style={{ fontSize: "clamp(2.8rem, 5.5vw, 5rem)" }}
-          >
-            Professional
-            <br />
-            <span className="text-brand-gold">Beauty</span> Products
-            <br />
-            for Modern Salons
-          </motion.h1>
+          {/* ── LEFT: Typography & CTAs (col-span-7) ─────────────── */}
+          <div className="lg:col-span-7 flex flex-col justify-center">
 
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.4,
-              ease: [0.25, 0.1, 0.25, 1],
-            }}
-            className="text-brand-warm-gray text-lg font-light leading-relaxed mb-10 max-w-md"
-          >
-            Premium salon-grade waxing products designed for professional
-            results — crafted for beauticians who demand the best.
-          </motion.p>
-
-          {/* CTA Row */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.55,
-              ease: [0.25, 0.1, 0.25, 1],
-            }}
-            className="flex flex-col sm:flex-row items-start sm:items-center gap-5"
-          >
-            <Link href={ctaHref}>
-              <button className="group relative flex h-14 items-center justify-center gap-3 overflow-hidden rounded-full bg-brand-gold px-9 text-sm font-semibold text-white tracking-widest uppercase transition-all hover:scale-105 hover:shadow-[0_8px_30px_rgba(200,168,130,0.45)] active:scale-95">
-                <span className="relative z-10">{ctaLabel}</span>
-                <ArrowRight
-                  size={16}
-                  className="relative z-10 transition-transform group-hover:translate-x-1"
-                />
-                <div className="absolute inset-0 z-0 bg-brand-gold-dark opacity-0 transition-opacity group-hover:opacity-100" />
-              </button>
-            </Link>
-
-            <Link
-              href="/about"
-              className="group flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-brand-charcoal transition-colors hover:text-brand-gold"
+            {/* Eyebrow Pill */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="inline-flex items-center gap-2 mb-6"
             >
-              <span>Our Philosophy</span>
-              <div className="h-px w-8 bg-brand-charcoal transition-all group-hover:w-12 group-hover:bg-brand-gold" />
-            </Link>
-          </motion.div>
+              <span className="flex items-center gap-2 bg-brand-gold/20 border border-brand-gold/40 text-brand-gold text-[11px] font-semibold tracking-[0.2em] uppercase px-4 py-2 rounded-full backdrop-blur-md">
+                <Sparkles size={12} className="text-brand-gold" />
+                Salon Grade Waxing Essentials
+              </span>
+            </motion.div>
 
-          {/* Trust Stats */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex items-center gap-8 mt-14 pt-8 border-t border-brand-divider"
-          >
-            {[
-              { value: "10K+", label: "Active Salons" },
-              { value: "50+", label: "Cities Served" },
-              { value: "4.9★", label: "Avg. Rating" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <p className="font-serif text-2xl font-semibold text-brand-dark">
-                  {stat.value}
-                </p>
-                <p className="text-xs text-brand-warm-gray tracking-wide mt-0.5">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </motion.div>
-        </div>
+            {/* Editorial Headline from Mockup */}
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.9,
+                delay: 0.2,
+                ease: [0.25, 0.1, 0.25, 1],
+              }}
+              className="font-serif text-white uppercase text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.08] mb-6 drop-shadow-md"
+            >
+              Professional Beauty
+              <br />
+              Products For
+              <br />
+              <span className="text-brand-gold font-normal">Modern Salons</span>
+            </motion.h1>
 
-        {/* ── RIGHT: Product Visual ───────────────────────── */}
-        <div className="relative flex items-center justify-center lg:justify-end h-full">
-          {/* Decorative circle blob */}
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[520px] h-[520px] rounded-full bg-brand-gold/8 -z-0" />
-          <div className="absolute right-8 top-1/2 -translate-y-1/2 w-[420px] h-[420px] rounded-full bg-brand-cream-mid -z-0" />
+            {/* Subtitle from Mockup */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.4,
+                ease: [0.25, 0.1, 0.25, 1],
+              }}
+              className="text-white/85 text-lg sm:text-xl font-light leading-relaxed mb-8 max-w-xl"
+            >
+              Premium salon-use products designed for professional results.
+              Formulated for beauticians who demand smooth, flawless, and painless client sessions.
+            </motion.p>
 
-          {/* Main product image */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-            className="relative z-10 w-full max-w-sm lg:max-w-md xl:max-w-lg"
-          >
-            <div className="relative aspect-[3/4] w-full rounded-t-[8rem] rounded-b-3xl overflow-hidden shadow-[0_32px_80px_rgba(44,28,14,0.18)]">
-              <Image
-                src="/images/hero-bg.jpg"
-                alt="LUMIÈRE Premium Salon Products"
-                fill
-                className="object-cover"
-                priority
-                unoptimized
-              />
-              {/* soft gradient at bottom */}
-              <div className="absolute inset-0 bg-linear-to-t from-brand-dark/30 via-transparent to-transparent" />
-            </div>
-
-            {/* Floating badge: Premium Salon */}
+            {/* CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9, duration: 0.7 }}
-              className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl px-5 py-4 border border-brand-divider min-w-[160px]"
+              transition={{
+                duration: 0.8,
+                delay: 0.55,
+                ease: [0.25, 0.1, 0.25, 1],
+              }}
+              className="flex flex-wrap items-center gap-4 sm:gap-6"
             >
-              <p className="text-[10px] font-semibold uppercase tracking-widest text-brand-gold mb-1">
-                Premium Salon
-              </p>
-              <p className="font-serif text-brand-dark text-base leading-tight">
-                Environment
-              </p>
-              <div className="flex items-center gap-0.5 mt-2">
+              <Link href={ctaHref}>
+                <button className="group relative flex h-14 items-center justify-center gap-3 overflow-hidden rounded-full bg-brand-gold px-9 text-sm font-semibold text-white tracking-widest uppercase transition-all hover:scale-105 hover:bg-brand-gold-dark hover:shadow-[0_8px_30px_rgba(200,168,130,0.5)] active:scale-95">
+                  <span className="relative z-10">{ctaLabel}</span>
+                  <ArrowRight
+                    size={18}
+                    className="relative z-10 transition-transform group-hover:translate-x-1"
+                  />
+                </button>
+              </Link>
+
+              <Link
+                href="/about"
+                className="group flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-white/90 transition-colors hover:text-brand-gold"
+              >
+                <span>Our Philosophy</span>
+                <div className="h-px w-8 bg-white/70 transition-all group-hover:w-12 group-hover:bg-brand-gold" />
+              </Link>
+            </motion.div>
+
+            {/* Trust Badges Bar */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.75 }}
+              className="flex flex-wrap items-center gap-8 mt-12 pt-8 border-t border-white/15"
+            >
+              {[
+                { value: "10,000+", label: "Verified Salons" },
+                { value: "100%", label: "Salon-Grade Pure" },
+                { value: "4.9 / 5", label: "Professional Rating" },
+              ].map((stat) => (
+                <div key={stat.label}>
+                  <p className="font-serif text-2xl font-semibold text-white">
+                    {stat.value}
+                  </p>
+                  <p className="text-xs text-white/60 tracking-wider uppercase mt-0.5">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* ── RIGHT: Product Feature & Premium Environment Card (col-span-5) ── */}
+          <div className="lg:col-span-5 flex flex-col items-center lg:items-end justify-center relative">
+
+            {/* Featured Product Floating Card */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                duration: 1,
+                delay: 0.35,
+                ease: [0.25, 0.1, 0.25, 1],
+              }}
+              className="relative w-full max-w-sm rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 p-6 shadow-[0_24px_60px_rgba(0,0,0,0.5)] overflow-hidden group hover:border-brand-gold/60 transition-all duration-500"
+            >
+              {/* Product Badge */}
+              <div className="flex items-center justify-between mb-4">
+                <span className="bg-brand-gold text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
+                  Featured Product
+                </span>
+                <span className="text-white/70 text-xs font-mono uppercase tracking-wider flex items-center gap-1">
+                  <ShieldCheck size={14} className="text-brand-gold" /> Pro Exclusive
+                </span>
+              </div>
+
+              {/* Product Image Window */}
+              <div className="relative aspect-square w-full rounded-2xl overflow-hidden mb-5 bg-white/5 border border-white/10">
+                <Image
+                  src="/images/product-1.jpg"
+                  alt="Premium Hard Wax Beans"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  unoptimized
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+
+              {/* Product Details */}
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h3 className="font-serif text-xl text-white font-medium mb-1">
+                    Premium Hard Wax Beans
+                  </h3>
+                  <p className="text-white/60 text-xs tracking-wide">
+                    Pearl Formula • 1kg Professional Bag
+                  </p>
+                </div>
+                <div className="text-right shrink-0">
+                  <p className="font-serif text-2xl text-brand-gold font-semibold">
+                    ₹2,400
+                  </p>
+                  <p className="text-[10px] text-white/50 line-through">
+                    ₹3,000
+                  </p>
+                </div>
+              </div>
+
+              {/* Quick Link */}
+              <Link
+                href="/shop"
+                className="mt-5 w-full flex items-center justify-center gap-2 py-3 rounded-full bg-white/15 hover:bg-brand-gold text-white text-xs font-semibold uppercase tracking-widest transition-colors duration-300"
+              >
+                <span>View Salon Range</span>
+                <ArrowRight size={14} />
+              </Link>
+            </motion.div>
+
+            {/* ── PREMIUM SALON ENVIRONMENT BADGE (Matching Mockup) ── */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.7 }}
+              className="mt-6 w-full max-w-sm rounded-2xl bg-black/60 backdrop-blur-md border border-white/15 px-6 py-4 flex items-center justify-between shadow-xl"
+            >
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-gold">
+                  Verified Standard
+                </p>
+                <p className="font-serif text-white text-base font-medium">
+                  Premium Salon Environment
+                </p>
+              </div>
+              <div className="flex items-center gap-1 bg-white/10 px-2.5 py-1.5 rounded-lg border border-white/10">
                 {[...Array(5)].map((_, i) => (
                   <Star
                     key={i}
-                    size={10}
+                    size={11}
                     className="text-brand-gold"
                     fill="#C8A882"
                   />
@@ -187,21 +238,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               </div>
             </motion.div>
 
-            {/* Floating badge: top right */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1.1, duration: 0.6 }}
-              className="absolute -top-4 -right-4 bg-brand-gold text-white rounded-full w-20 h-20 flex flex-col items-center justify-center shadow-lg text-center"
-            >
-              <p className="font-serif text-xl font-bold leading-none">98%</p>
-              <p className="text-[9px] tracking-wide leading-tight mt-0.5 font-medium uppercase">
-                Salon
-                <br />
-                Approval
-              </p>
-            </motion.div>
-          </motion.div>
+          </div>
+
         </div>
       </div>
     </section>
