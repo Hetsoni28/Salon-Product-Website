@@ -25,7 +25,7 @@ export default function ContactPage() {
           {/* Left: Contact Form */}
           <div className="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-brand-divider">
             <h3 className="font-serif text-3xl text-brand-dark mb-8">Send a Message</h3>
-            <form className="flex flex-col gap-6" action="#" method="POST" onSubmit={(e) => { e.preventDefault(); alert("Form submission will be handled by the backend."); }}>
+            <form className="flex flex-col gap-6" action="/contact">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
                   <label htmlFor="firstName" className="text-sm font-medium text-brand-charcoal uppercase tracking-wider">First Name *</label>
@@ -89,7 +89,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h4 className="text-brand-charcoal font-semibold mb-1">Phone Support</h4>
-                  <p className="text-gray-500 font-light">+91 (800) 123-4567<br />Toll Free across India</p>
+                  <p className="text-gray-500 font-light">+91 93277 75751<br />Available across India</p>
                 </div>
               </div>
 
