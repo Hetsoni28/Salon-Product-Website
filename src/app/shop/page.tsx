@@ -1,14 +1,46 @@
-import React from 'react';
+﻿import React from 'react';
 import Link from 'next/link';
 import { client } from '@/sanity/client';
 import { allProductsQuery } from '@/sanity/queries';
-import { SanityImage, Button, Price, Rating } from '@/components/atoms';
+import { SanityImage, Button, Price } from '@/components/atoms';
 import { ShoppingCart, Eye } from 'lucide-react';
 
 export const revalidate = 60; // Revalidate every minute
 
 export default async function ShopPage() {
-  const products = await client.fetch(allProductsQuery);
+  let products = await client.fetch(allProductsQuery);
+
+  // Fallback to dummy data if Sanity is empty (useful for immediate client presentation)
+  if (!products || products.length === 0) {
+    products = [
+      {
+        id: "1",
+        slug: "premium-hard-wax",
+        title: "Premium Hard Wax Beans - Pearl",
+        shortDescription: "Our signature professional-grade hard wax beans formulated for sensitive skin.",
+        price: 2400,
+        originalPrice: 3000,
+        image: "https://images.unsplash.com/photo-1629198728470-3693fb13430c?q=80&w=1000&auto=format&fit=crop",
+      },
+      {
+        id: "2",
+        slug: "pre-wax-cleansing-gel",
+        title: "Pre-Wax Cleansing Gel",
+        shortDescription: "Prepares and sanitizes the skin before waxing. Removes oils, makeup, and deodorant.",
+        price: 1800,
+        image: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=1000&auto=format&fit=crop",
+      },
+      {
+        id: "3",
+        slug: "post-wax-calming-oil",
+        title: "Post-Wax Calming Oil",
+        shortDescription: "Soothes the skin and removes wax residue. Infused with chamomile and aloe.",
+        price: 1950,
+        originalPrice: 2200,
+        image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?q=80&w=1000&auto=format&fit=crop",
+      }
+    ];
+  }
 
   return (
     <div className="min-h-screen bg-brand-cream pt-32 pb-24">
@@ -64,10 +96,7 @@ export default async function ShopPage() {
                   <Price amount={product.price} originalAmount={product.originalPrice} className="text-xl shrink-0" />
                 </div>
                 
-                <div className="flex items-center gap-2 mb-6">
-                  <Rating value={product.rating} />
-                  <span className="text-sm text-gray-500">({product.reviewCount} Reviews)</span>
-                </div>
+
 
                 <p className="text-gray-500 font-light leading-relaxed mb-8 flex-grow">
                   {product.shortDescription || 'Professional grade salon wax designed for optimal performance and maximum client comfort.'}
