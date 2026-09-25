@@ -3,6 +3,9 @@ import { groq } from 'next-sanity';
 import { notFound } from 'next/navigation';
 import { DashboardClient } from './DashboardClient';
 
+import { cookies } from 'next/headers';
+import { LoginForm } from './LoginForm';
+
 export const revalidate = 30; // Refresh every 30s
 
 export default async function SalesDashboard({
@@ -11,8 +14,12 @@ export default async function SalesDashboard({
   searchParams: Promise<{ secret?: string }>;
 }) {
   const { secret } = await searchParams;
-  if (secret !== process.env.ADMIN_DASHBOARD_SECRET) {
-    notFound();
+  const cookieStore = await cookies();
+  const hasCookie = cookieStore.get('admin_session')?.value === 'authenticated';
+  const hasSecret = secret === process.env.ADMIN_DASHBOARD_SECRET;
+
+  if (!hasCookie && !hasSecret) {
+    return <LoginForm />;
   }
 
   // Fetch all sale records

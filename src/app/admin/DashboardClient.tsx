@@ -96,9 +96,14 @@ export const DashboardClient: React.FC<DashboardClientProps> = ({
           </button>
         </nav>
         <div className="hidden md:block p-4 border-t border-white/10 shrink-0">
-          <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-white/50 hover:text-white transition-colors text-sm">
-            <LogOut size={18} /> Logout
-          </button>
+          <form action={async () => {
+            const { logoutAdmin } = await import('./actions');
+            await logoutAdmin();
+          }}>
+            <button type="submit" className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-white/50 hover:text-white transition-colors text-sm">
+              <LogOut size={18} /> Logout
+            </button>
+          </form>
         </div>
       </aside>
 
