@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { motion } from "framer-motion";
@@ -9,7 +9,7 @@ export function ProductBenefitsSection() {
   const benefits = [
     {
       title: "Ultra-low melt temperature",
-      desc: "Maximum client comfort — zero risk of burns during application.",
+      desc: "Maximum client comfort â€” zero risk of burns during application.",
     },
     {
       title: "Superior elasticity",
@@ -21,11 +21,11 @@ export function ProductBenefitsSection() {
     },
     {
       title: "Zero residue release",
-      desc: "Clean peel, no sticky aftermath — faster client turnover per day.",
+      desc: "Clean peel, no sticky aftermath â€” faster client turnover per day.",
     },
     {
       title: "Hypoallergenic certified",
-      desc: "Safe for face, underarm, and Brazilian — even ultra-sensitive skin.",
+      desc: "Safe for face, underarm, and Brazilian â€” even ultra-sensitive skin.",
     },
   ];
 
@@ -58,7 +58,7 @@ export function ProductBenefitsSection() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.6, duration: 0.8 }}
-              className="absolute bottom-12 -left-4 md:left-4 bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-white/50 max-w-[200px]"
+              className="absolute bottom-12 -left-4 md:left-4 bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-white/50 max-w-50"
             >
               <div className="text-brand-gold mb-2">
                 <svg
@@ -91,11 +91,11 @@ export function ProductBenefitsSection() {
               transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
             >
               <h2 className="text-4xl md:text-5xl font-serif text-brand-dark mb-6 leading-tight">
-                Why Salons Choose <br /> LUMIÈRE Wax.
+                Why Salons Choose <br /> LUMIÃˆRE Wax.
               </h2>
               <p className="text-gray-600 mb-12 text-lg font-light leading-relaxed">
                 Our proprietary wax formula is engineered to deliver faster
-                treatments, happier clients, and higher repeat bookings — every
+                treatments, happier clients, and higher repeat bookings â€” every
                 session, every time.
               </p>
 
