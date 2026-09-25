@@ -1,4 +1,4 @@
-﻿import { client } from '@/sanity/client';
+import { client } from '@/sanity/client';
 import { groq } from 'next-sanity';
 import { notFound } from 'next/navigation';
 import { DashboardClient } from './DashboardClient';
@@ -18,6 +18,7 @@ export default async function SalesDashboard({
   // Fetch all sale records
   const records = await client.fetch(groq`
     *[_type == "saleRecord"] | order(completedAt desc) {
+      _id,
       orderId,
       completedAt,
       dealerName,
@@ -25,6 +26,10 @@ export default async function SalesDashboard({
       dealerSlug,
       totalQuantity,
       orderTotal,
+      customerName,
+      customerPhone,
+      salonName,
+      status,
       items[] {
         productName,
         productSlug,
