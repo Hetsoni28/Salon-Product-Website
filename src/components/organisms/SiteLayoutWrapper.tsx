@@ -4,6 +4,7 @@ import React from "react";
 import { usePathname } from "next/navigation";
 import { Navbar, Footer } from "@/components/organisms";
 import { ScrollRestoration } from "@/components/atoms/ScrollRestoration";
+import { WhatsAppButton } from "@/components/atoms/WhatsAppButton";
 
 export function SiteLayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -24,6 +25,7 @@ export function SiteLayoutWrapper({ children }: { children: React.ReactNode }) {
         {children}
       </main>
       <Footer />
+      <WhatsAppButton />
     </>
   );
 }

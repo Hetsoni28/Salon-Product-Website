@@ -8,3 +8,4 @@ export * from './Price';
 export * from './Spinner';
 export * from './SanityImage';
 export * from './Divider';
+export * from './WhatsAppButton';
