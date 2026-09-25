@@ -122,7 +122,7 @@ export const DashboardClient: React.FC<DashboardClientProps> = ({
               {/* Metrics Grid */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {[
-                  { label: 'Total Revenue', value: `₹${grandTotalRevenue.toLocaleString('en-IN')}`, icon: DollarSign, trend: '+12.5%' },
+                  { label: 'Total Revenue', value: `\u20B9${grandTotalRevenue.toLocaleString('en-IN')}`, icon: DollarSign, trend: '+12.5%' },
                   { label: 'Items Sold', value: grandTotalItems.toLocaleString('en-IN'), icon: Package, trend: '+8.2%' },
                   { label: 'Active Dealers', value: dealerCount, icon: Award, trend: '+2' },
                 ].map((metric, idx) => (
@@ -155,10 +155,10 @@ export const DashboardClient: React.FC<DashboardClientProps> = ({
                   <div className="h-[300px] w-full">
                     {chartData.length > 0 ? (
                       <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={chartData} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
+                        <BarChart data={chartData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
                           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F0E8DF" />
                           <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6B6B6B' }} dy={10} />
-                          <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6B6B6B' }} tickFormatter={(val) => `₹${val/1000}k`} />
+                          <YAxis width={65} axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6B6B6B' }} tickFormatter={(val) => `Rs.${val/1000}k`} />
                           <Tooltip 
                             cursor={{ fill: '#FAF7F2' }}
                             contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}
@@ -201,7 +201,7 @@ export const DashboardClient: React.FC<DashboardClientProps> = ({
                           </div>
                         </div>
                         <div className="text-right">
-                          <p className="text-sm font-bold text-brand-gold">₹{order.orderTotal.toLocaleString('en-IN')}</p>
+                          <p className="text-sm font-bold text-brand-gold">{'\u20B9'}{order.orderTotal.toLocaleString('en-IN')}</p>
                           <p className="text-[10px] text-gray-400">
                             {new Date(order.completedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                           </p>
@@ -251,7 +251,7 @@ export const DashboardClient: React.FC<DashboardClientProps> = ({
                           <span className="bg-gray-100 text-brand-charcoal text-xs px-2 py-1 rounded font-mono">{dealer.code}</span>
                         </td>
                         <td className="px-8 py-5 text-right font-medium text-gray-700">{dealer.totalItems}</td>
-                        <td className="px-8 py-5 text-right font-bold text-brand-gold">₹{dealer.totalRevenue.toLocaleString('en-IN')}</td>
+                        <td className="px-8 py-5 text-right font-bold text-brand-gold">{'\u20B9'}{dealer.totalRevenue.toLocaleString('en-IN')}</td>
                       </tr>
                     )) : (
                       <tr>
@@ -297,7 +297,7 @@ export const DashboardClient: React.FC<DashboardClientProps> = ({
                       </div>
                       <div className="flex items-center gap-3">
                         <span className={`text-[10px] font-bold px-3 py-1 rounded-full capitalize ${statusStyles[status] || statusStyles.pending}`}>{status}</span>
-                        <span className="font-serif text-lg text-brand-dark">₹{order.orderTotal.toLocaleString('en-IN')}</span>
+                        <span className="font-serif text-lg text-brand-dark">{'\u20B9'}{order.orderTotal.toLocaleString('en-IN')}</span>
                       </div>
                     </div>
                     <div className="p-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
