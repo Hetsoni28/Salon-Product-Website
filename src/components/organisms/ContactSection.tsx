@@ -44,10 +44,10 @@ export function ContactSection() {
               Mon-Fri from 9am to 6pm EST.
             </p>
             <a
-              href="tel:+18001234567"
+              href="tel:+919327775751"
               className="text-brand-gold font-semibold tracking-widest uppercase text-sm hover:text-brand-charcoal transition-colors"
             >
-              +1 (800) 123-4567
+              +91 93277 75751
             </a>
           </motion.div>
 
