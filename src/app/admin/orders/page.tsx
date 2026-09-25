@@ -1,7 +1,8 @@
 import { client } from '@/sanity/client';
 import { groq } from 'next-sanity';
 import Link from 'next/link';
-import { ShoppingBag, Phone, User, Store, Clock, CheckCircle2, Truck, Package, XCircle, ArrowRight } from 'lucide-react';
+import { notFound } from 'next/navigation';
+import { ShoppingBag, Phone, User, Store, Clock, CheckCircle2, Truck, Package, XCircle, ArrowLeft } from 'lucide-react';
 
 export const revalidate = 0; // Always fresh
 
@@ -72,7 +73,16 @@ function buildWAMessage(order: Order) {
   return `https://wa.me/91${order.customerPhone?.replace(/\D/g, '')}?text=${encodeURIComponent(msg)}`;
 }
 
-export default async function AdminOrdersPage() {
+export default async function AdminOrdersPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ secret?: string }>;
+}) {
+  const { secret } = await searchParams;
+  if (secret !== process.env.ADMIN_DASHBOARD_SECRET) {
+    notFound();
+  }
+
   let orders: Order[] = [];
   try {
     orders = await client.fetch(ordersQuery);
@@ -80,11 +90,13 @@ export default async function AdminOrdersPage() {
     orders = [];
   }
 
+  const adminSecret = `?secret=${secret}`;
+
   const stats = {
     total: orders.length,
     pending: orders.filter((o) => !o.status || o.status === 'pending').length,
     confirmed: orders.filter((o) => o.status === 'confirmed').length,
-    revenue: orders.reduce((s, o) => s + ((o.orderTotal as number) || 0), 0),
+    revenue: orders.reduce((s, o) => s + (o.orderTotal || 0), 0),
   };
 
   return (
@@ -94,11 +106,14 @@ export default async function AdminOrdersPage() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
+            <Link href={`/admin${adminSecret}`} className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-brand-dark mb-4 transition-colors">
+              <ArrowLeft size={16} /> Back to Dashboard
+            </Link>
             <div className="flex items-center gap-3 mb-2">
               <div className="w-2 h-8 bg-brand-gold rounded-full" />
               <h1 className="font-serif text-4xl text-brand-dark">Orders</h1>
             </div>
-            <p className="text-gray-400 text-sm ml-5">All customer orders — confirm and dispatch from here</p>
+            <p className="text-gray-400 text-sm ml-5">Confirm and dispatch customer orders from here</p>
           </div>
           <Link href="/studio" className="inline-flex items-center gap-2 text-sm text-brand-gold font-semibold hover:underline">
             Open Sanity Studio <ArrowRight size={16} />
