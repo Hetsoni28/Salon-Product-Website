@@ -19,7 +19,9 @@ export default function CheckoutClient() {
 
   const [step, setStep] = useState<CheckoutStep>("info");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [paymentStatus, setPaymentStatus] = useState<"pending" | "processing" | "completed">("pending");
+  const [paymentStatus, setPaymentStatus] = useState<
+    "pending" | "processing" | "completed"
+  >("pending");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -65,7 +67,8 @@ export default function CheckoutClient() {
     } else if (!/^[0-9]{10}$/.test(formData.phone.replace(/\D/g, ""))) {
       newErrs.phone = "Valid 10-digit phone required";
     }
-    if (!formData.salonName.trim()) newErrs.salonName = "Salon name is required";
+    if (!formData.salonName.trim())
+      newErrs.salonName = "Salon name is required";
 
     setErrors(newErrs);
     return Object.keys(newErrs).length === 0;
@@ -118,7 +121,9 @@ export default function CheckoutClient() {
       }, 1000);
     } catch (err) {
       console.error(err);
-      alert("There was an issue finalizing your order. Please contact support.");
+      alert(
+        "There was an issue finalizing your order. Please contact support.",
+      );
       setPaymentStatus("pending");
     } finally {
       setIsSubmitting(false);
@@ -126,12 +131,12 @@ export default function CheckoutClient() {
   };
 
   // UPI Setup
-  const merchantUpiId = "lumiere@ybl";
-  const merchantName = "LUMIERE Salon Supplies";
+  const merchantUpiId = process.env.NEXT_PUBLIC_UPI_ID || "lumiere@ybl";
+  const merchantName = process.env.NEXT_PUBLIC_MERCHANT_NAME || "LUMIERE Salon Supplies";
   const note = `Order by ${formData.salonName || formData.name}`;
   // standard UPI Intent URI
   const upiIntent = `upi://pay?pa=${merchantUpiId}&pn=${encodeURIComponent(
-    merchantName
+    merchantName,
   )}&am=${cartTotal}&cu=INR&tn=${encodeURIComponent(note)}`;
 
   // SUCCESS STEP
@@ -150,7 +155,8 @@ export default function CheckoutClient() {
           Order Confirmed!
         </h1>
         <p className="text-gray-500 max-w-md mx-auto mb-8">
-          Thank you for choosing LUMIÈRE. Your professional salon supplies are being prepared.
+          Thank you for choosing LUMIÈRE. Your professional salon supplies are
+          being prepared.
           {attribution && (
             <span className="block mt-2 font-medium text-brand-gold">
               Purchased through dealer: {attribution.name}
@@ -167,14 +173,17 @@ export default function CheckoutClient() {
   return (
     <div className="container-luxury py-10 pb-20">
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-20">
-        
         {/* Left Column: Flow */}
         <div className="flex-1 order-2 lg:order-1">
           {/* Breadcrumbs / Steps */}
           <div className="flex items-center gap-2 mb-10 text-sm font-semibold uppercase tracking-widest text-gray-400">
-            <span className={step === "info" ? "text-brand-dark" : ""}>Information</span>
+            <span className={step === "info" ? "text-brand-dark" : ""}>
+              Information
+            </span>
             <span>/</span>
-            <span className={step === "payment" ? "text-brand-dark" : ""}>Payment</span>
+            <span className={step === "payment" ? "text-brand-dark" : ""}>
+              Payment
+            </span>
           </div>
 
           <AnimatePresence mode="wait">
@@ -247,7 +256,7 @@ export default function CheckoutClient() {
                 className="space-y-8"
               >
                 <div className="flex items-center gap-4 mb-6">
-                  <button 
+                  <button
                     onClick={() => setStep("info")}
                     className="p-2 -ml-2 text-gray-400 hover:text-brand-dark transition-colors"
                   >
@@ -260,9 +269,10 @@ export default function CheckoutClient() {
 
                 <div className="bg-white rounded-2xl border border-brand-divider p-8 text-center shadow-sm">
                   <p className="text-gray-500 mb-6">
-                    Scan the QR code below with any UPI app (GPay, PhonePe, Paytm) to pay securely.
+                    Scan the QR code below with any UPI app (GPay, PhonePe,
+                    Paytm) to pay securely.
                   </p>
-                  
+
                   <div className="bg-brand-cream inline-block p-4 rounded-xl border border-brand-divider shadow-inner mb-6">
                     <QRCode
                       value={upiIntent}
@@ -274,8 +284,13 @@ export default function CheckoutClient() {
                   </div>
 
                   <div className="flex items-center justify-center gap-2 mb-8">
-                    <span className="text-brand-charcoal text-xl font-medium">₹</span>
-                    <Price amount={cartTotal} className="text-3xl font-serif text-brand-dark" />
+                    <span className="text-brand-charcoal text-xl font-medium">
+                      ₹
+                    </span>
+                    <Price
+                      amount={cartTotal}
+                      className="text-3xl font-serif text-brand-dark"
+                    />
                   </div>
 
                   <div className="flex flex-col gap-4 max-w-sm mx-auto">
@@ -286,18 +301,20 @@ export default function CheckoutClient() {
                     >
                       Pay via UPI App
                     </a>
-                    
+
                     <Button
                       variant="primary"
                       size="lg"
                       className="w-full h-14 rounded-full"
                       onClick={handleFinalizeOrder}
-                      disabled={isSubmitting || paymentStatus === 'completed'}
+                      disabled={isSubmitting || paymentStatus === "completed"}
                     >
                       {isSubmitting ? (
                         <Loader2 className="animate-spin mx-auto" />
-                      ) : paymentStatus === 'completed' ? (
-                        <span className="flex items-center gap-2"><Check size={18} /> Payment Verified</span>
+                      ) : paymentStatus === "completed" ? (
+                        <span className="flex items-center gap-2">
+                          <Check size={18} /> Payment Verified
+                        </span>
                       ) : (
                         "I Have Completed the Payment"
                       )}
@@ -312,8 +329,10 @@ export default function CheckoutClient() {
         {/* Right Column: Order Summary */}
         <div className="w-full lg:w-[400px] shrink-0 order-1 lg:order-2">
           <div className="bg-white rounded-3xl border border-brand-divider p-6 lg:p-8 sticky top-32 shadow-sm">
-            <h3 className="font-serif text-xl text-brand-dark mb-6">Order Summary</h3>
-            
+            <h3 className="font-serif text-xl text-brand-dark mb-6">
+              Order Summary
+            </h3>
+
             <div className="space-y-4 mb-6 max-h-[40vh] overflow-y-auto pr-2 scrollbar-hide">
               {items.map((item) => (
                 <div key={item.id} className="flex gap-4">
@@ -338,7 +357,10 @@ export default function CheckoutClient() {
                     <h4 className="text-sm font-medium text-brand-dark line-clamp-2">
                       {item.name}
                     </h4>
-                    <Price amount={item.price * item.quantity} className="text-sm text-gray-500 mt-1" />
+                    <Price
+                      amount={item.price * item.quantity}
+                      className="text-sm text-gray-500 mt-1"
+                    />
                   </div>
                 </div>
               ))}
@@ -356,21 +378,27 @@ export default function CheckoutClient() {
               <div className="border-t border-brand-divider pt-4 flex justify-between items-center">
                 <span className="font-medium text-brand-dark">Total</span>
                 <div className="text-right">
-                   <span className="text-xs text-gray-400 mr-2">INR</span>
-                   <Price amount={cartTotal} className="text-2xl font-serif text-brand-dark" />
+                  <span className="text-xs text-gray-400 mr-2">INR</span>
+                  <Price
+                    amount={cartTotal}
+                    className="text-2xl font-serif text-brand-dark"
+                  />
                 </div>
               </div>
             </div>
-            
+
             {attribution && (
               <div className="mt-6 bg-brand-cream/50 border border-brand-gold/30 rounded-xl p-4 text-center">
-                <p className="text-xs font-semibold uppercase tracking-widest text-brand-gold mb-1">Dealer Linked</p>
-                <p className="text-sm text-brand-charcoal">{attribution.name}</p>
+                <p className="text-xs font-semibold uppercase tracking-widest text-brand-gold mb-1">
+                  Dealer Linked
+                </p>
+                <p className="text-sm text-brand-charcoal">
+                  {attribution.name}
+                </p>
               </div>
             )}
           </div>
         </div>
-
       </div>
     </div>
   );
