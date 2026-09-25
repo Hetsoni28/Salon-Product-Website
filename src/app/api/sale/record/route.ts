@@ -45,16 +45,24 @@ export async function POST(req: NextRequest) {
 
     const orderId = uuidv4();
     const completedAt = new Date().toISOString();
+    const hasToken =
+      !!process.env.SANITY_API_TOKEN &&
+      process.env.SANITY_API_TOKEN !== "your-api-token-here";
 
     // PHASE 22 SECURITY: Server-Side Price & Input Validation
     // Never trust client-provided prices or quantities. Fetch real prices from DB.
     const productIds = body.items.map((i) => i.productId).filter(Boolean);
     let realProducts: any[] = [];
-    if (productIds.length > 0) {
-      realProducts = await writeClient.fetch(
-        `*[_type == "product" && _id in $productIds]{ _id, price, name }`, 
-        { productIds }
-      );
+    if (productIds.length > 0 && hasToken) {
+      try {
+        realProducts = await writeClient.fetch(
+          `*[_type == "product" && _id in $productIds]{ _id, price, name }`,
+          { productIds },
+        );
+      } catch {
+        // If DB read fails (e.g. no token), fall through and use client prices
+        console.warn("[sale/record] Could not fetch real prices from Sanity. Using client prices.");
+      }
     }
 
     // Compute secure line totals
@@ -100,51 +108,57 @@ export async function POST(req: NextRequest) {
       doc.dealerSlug = body.dealer.slug;
     }
 
-    // 1. Create the sale record
-    await writeClient.create(doc);
+    // 1. Persist sale record to Sanity (skip gracefully if no token configured)
+    if (hasToken) {
+      try {
+        await writeClient.create(doc);
 
-    // 2. PHASE 18: UPDATE DEALER SALES
-    if (body.dealer && body.dealer.code) {
-      // Find the dealer document by code
-      const dealerDoc = await writeClient.fetch(
-        `*[_type == "dealer" && dealerCode == $code][0]`,
-        { code: body.dealer.code },
-      );
-
-      if (dealerDoc) {
-        // Prepare updated products array
-        const existingProducts = dealerDoc.productsSold || [];
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const updatedProducts: any[] = [...existingProducts];
-
-        enrichedItems.forEach((item) => {
-          const existingIndex = updatedProducts.findIndex(
-            (p) => p.productId === item.productId,
+        // 2. PHASE 18: UPDATE DEALER SALES
+        if (body.dealer && body.dealer.code) {
+          const dealerDoc = await writeClient.fetch(
+            `*[_type == "dealer" && dealerCode == $code][0]`,
+            { code: body.dealer.code },
           );
-          if (existingIndex > -1) {
-            updatedProducts[existingIndex].quantity += item.quantity;
-          } else {
-            updatedProducts.push({
-              _key: uuidv4(),
-              productId: item.productId,
-              productName: item.productName,
-              quantity: item.quantity,
-            });
-          }
-        });
 
-        // Patch the dealer document
-        await writeClient
-          .patch(dealerDoc._id)
-          .setIfMissing({
-            totalSalesAmount: 0,
-            totalItemsSold: 0,
-            productsSold: [],
-          })
-          .inc({ totalSalesAmount: orderTotal, totalItemsSold: totalQuantity })
-          .set({ productsSold: updatedProducts })
-          .commit();
+          if (dealerDoc) {
+            const existingProducts = dealerDoc.productsSold || [];
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const updatedProducts: any[] = [...existingProducts];
+
+            enrichedItems.forEach((item) => {
+              const existingIndex = updatedProducts.findIndex(
+                (p) => p.productId === item.productId,
+              );
+              if (existingIndex > -1) {
+                updatedProducts[existingIndex].quantity += item.quantity;
+              } else {
+                updatedProducts.push({
+                  _key: uuidv4(),
+                  productId: item.productId,
+                  productName: item.productName,
+                  quantity: item.quantity,
+                });
+              }
+            });
+
+            await writeClient
+              .patch(dealerDoc._id)
+              .setIfMissing({
+                totalSalesAmount: 0,
+                totalItemsSold: 0,
+                productsSold: [],
+              })
+              .inc({ totalSalesAmount: orderTotal, totalItemsSold: totalQuantity })
+              .set({ productsSold: updatedProducts })
+              .commit();
+          }
+        }
+      } catch (dbErr) {
+        // Log the DB error but don't fail the customer's checkout
+        console.error("[sale/record] DB write error (non-fatal):", dbErr);
       }
+    } else {
+      console.warn("[sale/record] SANITY_API_TOKEN not configured. Sale not persisted to DB (dev mode).");
     }
 
     return NextResponse.json({
