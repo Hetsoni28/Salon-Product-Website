@@ -1,8 +1,8 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { SanityImage, Button, Price, Rating } from '@/components/atoms';
+import { SanityImage, Button, Price } from '@/components/atoms';
 import { QuantitySelector, ProductCard } from '@/components/molecules';
 import { ShoppingCart, Heart, CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
@@ -125,11 +125,6 @@ export const ProductDetailPanel: React.FC<ProductDetailPanelProps> = ({
             <h1 className="font-serif text-4xl md:text-5xl text-brand-dark mb-4">{title}</h1>
             
             <div className="flex items-center gap-4 mb-6">
-              <div className="flex items-center gap-1">
-                <Rating value={rating} />
-                <span className="text-sm text-gray-500 ml-2">({reviewCount} reviews)</span>
-              </div>
-              <div className="h-4 w-px bg-gray-300" />
               {inStock ? (
                 <span className="text-sm text-green-600 font-medium flex items-center gap-1"><CheckCircle2 size={16}/> {availability || 'In Stock'}</span>
               ) : (
