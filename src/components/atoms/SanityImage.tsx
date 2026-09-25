@@ -42,10 +42,11 @@ export const SanityImage: React.FC<SanityImageProps> = ({
     if (typeof image === "string") {
       src = image;
     } else if (image && Object.keys(image).length > 0) {
-      // urlFor is expected to handle the sanity image source
-      const builder = urlFor(image).quality(quality);
+      // Use auto format (WebP/AVIF) for best compression
+      const builder = urlFor(image).auto("format").quality(quality);
       if (width) builder.width(width);
       if (height) builder.height(height);
+      if (fill) builder.fit("max");
       src = builder.url();
     }
   } catch (error) {
