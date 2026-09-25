@@ -2,15 +2,13 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { Heart, ShoppingCart, Trash2 } from "lucide-react";
+import { Heart } from "lucide-react";
 import { useWishlist } from "@/lib/providers/WishlistProvider";
-import { useCart } from "@/lib/providers/CartProvider";
 import { BreadCrumb, ProductCard } from "@/components/molecules";
-import { SanityImage, Button, Price } from "@/components/atoms";
+import { Button } from "@/components/atoms";
 
 export default function WishlistPage() {
-  const { items, toggleItem } = useWishlist();
-  const { addItem } = useCart();
+  const { items } = useWishlist();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -68,7 +66,7 @@ export default function WishlistPage() {
                 title={item.name}
                 slug={item.slug}
                 price={item.price}
-                image={item.image}
+                image={item.image || ""}
               />
             ))}
           </div>
