@@ -177,19 +177,21 @@ export const Footer = () => {
             data-hn-link="pending"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 group"
+            className="flex items-center gap-2 group opacity-100"
           >
-            <img
-              src="/hn-solutions-logo.jpg"
-              alt="HN Solutions"
-              width={24}
-              height={24}
-              className="rounded-full"
-            />
+            <div className="w-7 h-7 rounded-full bg-white flex items-center justify-center p-0.5 shadow-md">
+              <img
+                src="/hn-solutions-logo.jpg"
+                alt="HN Solutions"
+                width={26}
+                height={26}
+                className="rounded-full object-cover"
+              />
+            </div>
             <span className="font-semibold text-brand-gold group-hover:text-white transition-colors">
               HN Solutions
             </span>
-            <span className="text-brand-cream-dark opacity-70">
+            <span className="text-brand-cream-dark/60">
               — Designed &amp; Developed
             </span>
           </a>
