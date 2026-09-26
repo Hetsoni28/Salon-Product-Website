@@ -41,7 +41,7 @@ export function ContactSection() {
               Call Us
             </h4>
             <p className="text-gray-500 font-light mb-6">
-              Mon-Fri from 9am to 6pm EST.
+              Mon-Sat from 10am to 7pm IST.
             </p>
             <a
               href="tel:+919327775751"

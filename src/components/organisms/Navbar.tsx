@@ -166,14 +166,14 @@ export const Navbar = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 bg-black/20 z-50 md:hidden backdrop-blur-sm"
+              className="fixed inset-0 bg-black/50 z-[60] md:hidden backdrop-blur-sm"
             />
             <motion.div
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 left-0 bottom-0 w-64 bg-[#FAF7F2] z-50 p-6 md:hidden shadow-xl"
+              className="fixed top-0 left-0 bottom-0 w-72 bg-[#FAF7F2] z-[70] p-6 md:hidden shadow-2xl"
             >
               <div className="flex justify-between items-center mb-8">
                 <span className="font-serif text-xl text-brand-charcoal">
